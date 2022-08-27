@@ -36,12 +36,12 @@ var footSubtitle2 = spData.footSubtitle2;
 var footCreditiTitle = spData.footCreditiTitle;
 var footCreditiSubtitle = spData.footCreditiSubtitle;
 var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
-var user = spData.user;
-var password = spData.password;
+// var user = spData.user;
+// var password = spData.password;
 
-const sleep = (milliseconds) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
+// const sleep = (milliseconds) => {
+//   return new Promise(resolve => setTimeout(resolve, milliseconds))
+// }
 
 const Conferma = ({ alShow, children }) => {
   const showHideClassName = alShow ? "display-block" : "display-none";
@@ -330,8 +330,8 @@ class Main extends React.Component {
         footCreditiTitle = spData.footCreditiTitle;
         footCreditiSubtitle = spData.footCreditiSubtitle;
         footCreditiSubtitle2 = spData.footCreditiSubtitle2;
-        user = spData.user;
-        password = spData.password;
+        // user = spData.user;
+        // password = spData.password;
         // console.log("Check password: ", comparePassword("admin", password));
         // console.log("Hashed first password: ", hashPassword(password));
       })
@@ -353,82 +353,82 @@ class Main extends React.Component {
       window.setTimeout(() => { this.checkImageUpload(url, op); }, 300);
     } else {
       console.log("Continue...")
-      sleep(1000).then(r => {
-        flag = "";
-        // var nome = fileImg.name;
-        if (url === "logo" && op === "edit") {
-          spData.LogoIcon = "./img/" + nome;
-          this.setState({ upShow: false });
-          this.setState({ alShow: true });
-          this.setState({ alErrShow: false });
-          console.log("File correctly Uploaded!");
-        } else if (url === "icon" && op === "edit") {
-          if (fileImg !== null) {
-            console.log("Icon edit!");
-            array[temp].icon = "./appicons/" + nome;
-          }
-          if (temp2 !== "") {
-            array[temp].title = temp2;
-          }
-          if (temp3 !== "") {
-            array[temp].link = temp3;
-          }
-          this.setState({ appItems: array });
-          spData.appItems = array;
-          temp = "";
-          temp2 = "";
-          temp3 = "";
-          this.setState({ upShow: false });
-          this.setState({ alShow: true });
-          this.setState({ alErrShow: false });
-          console.log("Edit Icon correctly Uploaded!");
-        } else if (url === "icon" && op === "add") {
-          newItem.icon = "./appicons/" + nome;
-          newItem.title = temp2;
-          newItem.link = temp3;
-          tempIcon = "";
-          arrayAdd = this.addAfter(array, inPos, newItem);
-          console.log("Insert pos=", (inPos));
-          this.setState({ appItems: arrayAdd });
-          spData.appItems = arrayAdd;
-          arrayAdd = [];
-          temp = "";
-          temp2 = "";
-          temp3 = "";
-          newItem = {
-            "title": "",
-            "link": "",
-            "icon": ""
-          };
-          this.setState({ upShow: false });
-          this.setState({ alShow: true });
-          this.setState({ alErrShow: false });
-          console.log("Add Icon correctly Uploaded!");
-        } else if (url === "icon" && op === "addlast") {
-          newItem.icon = "./appicons/" + nome;
-          newItem.title = temp2;
-          newItem.link = temp3;
-          inPos = arrayLength;
-          tempIcon = "";
-          arrayAdd = this.addAfter(array, inPos, newItem);
-          this.setState({ appItems: arrayAdd });
-          spData.appItems = arrayAdd;
-          arrayAdd = [];
-          temp = "";
-          temp2 = "";
-          temp3 = "";
-          newItem = {
-            "title": "",
-            "link": "",
-            "icon": ""
-          };
-          this.setState({ upShow: false });
-          this.setState({ alShow: true });
-          this.setState({ alErrShow: false });
-          console.log("Add Last Icon correctly Uploaded!");
+      // sleep(1000).then(r => {
+      flag = "";
+      // var nome = fileImg.name;
+      if (url === "logo" && op === "edit") {
+        spData.LogoIcon = "./img/" + nome;
+        this.setState({ upShow: false });
+        this.setState({ alShow: true });
+        this.setState({ alErrShow: false });
+        console.log("File correctly Uploaded!");
+      } else if (url === "icon" && op === "edit") {
+        if (fileImg !== null) {
+          console.log("Icon edit!");
+          array[temp].icon = "./appicons/" + nome;
         }
-        fileImg = null;
-      })
+        if (temp2 !== "") {
+          array[temp].title = temp2;
+        }
+        if (temp3 !== "") {
+          array[temp].link = temp3;
+        }
+        this.setState({ appItems: array });
+        spData.appItems = array;
+        temp = "";
+        temp2 = "";
+        temp3 = "";
+        this.setState({ upShow: false });
+        this.setState({ alShow: true });
+        this.setState({ alErrShow: false });
+        console.log("Edit Icon correctly Uploaded!");
+      } else if (url === "icon" && op === "add") {
+        newItem.icon = "./appicons/" + nome;
+        newItem.title = temp2;
+        newItem.link = temp3;
+        tempIcon = "";
+        arrayAdd = this.addAfter(array, inPos, newItem);
+        console.log("Insert pos=", (inPos));
+        this.setState({ appItems: arrayAdd });
+        spData.appItems = arrayAdd;
+        arrayAdd = [];
+        temp = "";
+        temp2 = "";
+        temp3 = "";
+        newItem = {
+          "title": "",
+          "link": "",
+          "icon": ""
+        };
+        this.setState({ upShow: false });
+        this.setState({ alShow: true });
+        this.setState({ alErrShow: false });
+        console.log("Add Icon correctly Uploaded!");
+      } else if (url === "icon" && op === "addlast") {
+        newItem.icon = "./appicons/" + nome;
+        newItem.title = temp2;
+        newItem.link = temp3;
+        inPos = arrayLength;
+        tempIcon = "";
+        arrayAdd = this.addAfter(array, inPos, newItem);
+        this.setState({ appItems: arrayAdd });
+        spData.appItems = arrayAdd;
+        arrayAdd = [];
+        temp = "";
+        temp2 = "";
+        temp3 = "";
+        newItem = {
+          "title": "",
+          "link": "",
+          "icon": ""
+        };
+        this.setState({ upShow: false });
+        this.setState({ alShow: true });
+        this.setState({ alErrShow: false });
+        console.log("Add Last Icon correctly Uploaded!");
+      }
+      fileImg = null;
+      // })
     }
   }
 
@@ -438,14 +438,14 @@ class Main extends React.Component {
       fetchDelPHP(tempIcon, "./api/img-upload.php", url);
       console.log("Image deleted=", tempIcon);
     }
-    sleep(1000).then(r => {
-      tempIcon = "";
-      this.setState({ alErrShow: false });
-      this.setState({ upShow: true });
-      this.setState({ alShow: false });
-      fetchUpPHP(file, "./api/img-upload.php", url);
-      this.checkImageUpload(url, op);
-    });
+    // sleep(1000).then(r => {
+    tempIcon = "";
+    this.setState({ alErrShow: false });
+    this.setState({ upShow: true });
+    this.setState({ alShow: false });
+    fetchUpPHP(file, "./api/img-upload.php", url);
+    this.checkImageUpload(url, op);
+    // });
     // }
   }
 
@@ -581,7 +581,7 @@ class Main extends React.Component {
           .then(user => {
             // console.log(result)
             if (user && pass && login === false) {
-            // if (temp === spData.user && result !== false && login === false) {
+              // if (temp === spData.user && result !== false && login === false) {
               login = true;
               temp = "";
               temp2 = "";
