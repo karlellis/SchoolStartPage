@@ -1,0 +1,25 @@
+{
+    "headTitle": "Liceo Statale",
+    "headSubtitle": "Home Page Servizi Web",
+    "headSubtitleLink": "../index.html",
+    "footTitle": "Liceo Statale",
+    "footSubtitle": "Indirizzo",
+    "footSubtitle2": "Telefono",
+    "footCreditiTitle": "Credits",
+    "footCreditiSubtitle": "Designed by A.M. Productions",
+    "footCreditiSubtitle2": "Powered by React JS & Bootstrap",
+    "user": "$2a$10$oUUfl/54KgMkkiFdkICeMeXIAqS5Y/GXaYKIEvLAwqCZc2svcOLK.",
+    "password": "$2a$10$oUUfl/54KgMkkiFdkICeMeXIAqS5Y/GXaYKIEvLAwqCZc2svcOLK.",
+    "headShow": false,
+    "footShow": false,
+    "mainBtn": false,
+    "appsBtnShow": false,
+    "GearIcon": "./img/gear.svg",
+    "LogoIcon": "./img/logo.svg",
+    "appItems": [],
+    "appAdd": {
+        "title": "Add Item",
+        "link": "https://Add_Item",
+        "icon": "./appicons/ac_add.svg"
+    }
+}

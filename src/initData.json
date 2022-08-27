@@ -1,0 +1,27 @@
+{
+  "headTitle": "",
+  "headSubtitle": "Home Page Servizi Web",
+  "headSubtitleLink": "../index.html",
+  "footTitle": "",
+  "footSubtitle": "",
+  "footSubtitle2": "",
+  "footCreditiTitle": "",
+  "footCreditiSubtitle": "",
+  "footCreditiSubtitle2": "",
+  "user": "spadmin",
+  "password": "admin",
+  "headShow": "false",
+  "footShow": false,
+  "mainBtn": false,
+  "appsBtnShow": false,
+  "GearIcon": "./img/gear.svg",
+  "LogoIcon": "",
+  "appItems": [],
+  "appAdd": [
+    {
+      "title": "Add Item",
+      "link": "https://Add_Item",
+      "icon": "./appicons/ac_add.svg"
+    }
+  ]
+}
