@@ -32,6 +32,7 @@ var headTitle = spData.headTitle;
 var headSubtitle = spData.headSubtitle;
 var headSubtitleLink = spData.headSubtitleLink;
 var headColor = spData.headColor;
+var logoColor = spData.logoColor;
 var footTitle = spData.footTitle;
 var footSubtitle = spData.footSubtitle;
 var footSubtitle2 = spData.footSubtitle2;
@@ -90,8 +91,38 @@ const TitleDialog = ({ handleSave, handleClose, titleDiaShow, children }) => {
   );
 };
 
+const ClockDialog = ({ handleSave, handleClose, clockDiaShow, children }) => {
+  const showHideClassName = clockDiaShow ? "modal display-block" : "modal display-none";
+  return (
+    <div className={showHideClassName}>
+      <section className="modal-main">
+        {children}
+        <div className="modal-footer">
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+        </div>
+      </section>
+    </div>
+  );
+};
+
 const InfoDialog = ({ handleSave, handleClose, infoDiaShow, children }) => {
   const showHideClassName = infoDiaShow ? "modal display-block" : "modal display-none";
+  return (
+    <div className={showHideClassName}>
+      <section className="modal-main">
+        {children}
+        <div className="modal-footer">
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children }) => {
+  const showHideClassName = backEditDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
@@ -643,6 +674,10 @@ class Main extends React.Component {
       this.setState({ appDelDiaShow: true });
     } else if (id === "appAdd") {
       this.setState({ appAddDiaShow: true });
+    } else if (id === "back") {
+      this.setState({ backEditDiaShow: true });
+    } else if (id === "clock") {
+      this.setState({ clockDiaShow: true });
     }
   };
 
@@ -657,6 +692,8 @@ class Main extends React.Component {
     this.setState({ appEditDiaShow: false });
     this.setState({ appDelDiaShow: false });
     this.setState({ appAddDiaShow: false });
+    this.setState({ backEditDiaShow: false });
+    this.setState({ clockDiaShow: false });
     this.setState({ alShow: false });
     this.setState({ alErrShow: false });
     document.getElementById('loginForm').reset();
@@ -736,6 +773,16 @@ class Main extends React.Component {
   headTitleEdit(id) {
     this.showModal("title");
     console.log("Title Edit Clicked:", id);
+  }
+
+  backEdit(id) {
+    this.showModal("back");
+    console.log("Background Edit Clicked:");
+  }
+
+  clockEdit(id) {
+    this.showModal("clock");
+    console.log("Clock Edit Clicked:");
   }
 
   footCreditsEdit(id) {
@@ -955,8 +1002,14 @@ class Main extends React.Component {
                 </div>
               </div>
               {/* OROLOGIO */}
-              <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center">
+              <div id="HeadDate" className="col-md logo latowhite brick d-flex flex-column justify-content-end align-items-center">
+              {/* <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center"> */}
                 <Orologio></Orologio>
+                <div className="stretch d-flex justify-content-center align-items-center">
+                  <button className="col flexbutton solidgreen m-1" onClick={() => this.clockEdit()}>
+                    Edit Clock
+                  </button>
+                </div>
               </div>
               {/* SETTINGS */}
               <div id="HeadSettings" className="col-md-1 indaco d-flex flex-column justify-content-center align-items-center">
@@ -1001,6 +1054,10 @@ class Main extends React.Component {
             <button className="col button solidindaco m-1"
               onClick={() => this.appsButtonShow("ShowAppBtn")}>
               App Settings
+            </button>
+            <button className="col button indaco m-1"
+              onClick={() => this.backEdit()}>
+              Background
             </button>
           </div>
         </>
@@ -1297,6 +1354,49 @@ class Main extends React.Component {
             </div>
           </div>
         </TitleDialog>
+        <ClockDialog clockDiaShow={this.state.clockDiaShow} handleClose={this.hideModal} handleSave={this.clockEdit}>
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" >Modifica sfondo Orologio</h5>
+            </div>
+            <div className="modal-body">
+              <form id="titleForm">
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                </div>
+                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                  <div className="row text-center pt-2">
+                    <div className="col">
+                      <div className="row">
+                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                          <div>
+                            <p className="norfont">Modifica Salvata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </Conferma>
+                <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
+                  <div className="row text-center pt-2">
+                    <div className="col">
+                      <div className="row">
+                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                          <div>
+                            <p className="norfont">Errore!</p>
+                            <p className="smallfont">Assicurarsi di aver inserito almeno un carattere.</p>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </Errore>
+              </form>
+            </div>
+          </div>
+        </ClockDialog>
         <LogoDialog logoDiaShow={this.state.logoDiaShow} handleClose={this.hideModal} handleUpload={this.uploadCheck}>
           <div className="modal-content">
             <div className="modal-header">
@@ -1426,6 +1526,55 @@ class Main extends React.Component {
             </div>
           </div>
         </CreditDialog>
+
+        <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} handleClose={this.hideModal} handleSave={this.backEdit}>
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" >Modifica Sfondo Pagina</h5>
+            </div>
+            <div className="modal-body">
+              <form id="backEditForm">
+                <div className="form-group">
+                  <label>Scegli un file immagine per lo sfondo (Max 1 MB)</label>
+                  <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                </div>
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                </div>
+                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                  <div className="row text-center pt-2">
+                    <div className="col">
+                      <div className="row">
+                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                          <div>
+                            <p className="norfont">Modifiche Salvate!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </Conferma>
+                <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
+                  <div className="row text-center pt-2">
+                    <div className="col">
+                      <div className="row">
+                        <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
+                          <div>
+                            <p className="norfont">Caricamento dati in corso...</p>
+                            <p className="smallfont">Attendere prego.</p>
+                          </div>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </Upload>
+              </form>
+            </div>
+          </div>
+        </BackEditDialog>
+
         <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
           <div className="modal-content">
             <div className="modal-header">
