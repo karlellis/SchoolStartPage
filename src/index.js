@@ -84,7 +84,7 @@ const TitleDialog = ({ handleSave, handleClose, titleDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -99,7 +99,7 @@ const ClockDialog = ({ handleSave, handleClose, clockDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -114,7 +114,7 @@ const InfoDialog = ({ handleSave, handleClose, infoDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -129,7 +129,7 @@ const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children }) 
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -144,7 +144,7 @@ const AppEditDialog = ({ handleSave, handleClose, appEditDiaShow, children }) =>
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -189,7 +189,7 @@ const CreditDialog = ({ handleSave, handleClose, creditDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -204,7 +204,7 @@ const LoginEditDialog = ({ handleEditLogin, handleClose, loginEditDiaShow, child
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleEditLogin}>Salva</button>
+          <button type="button" className="btn btn-primary" onClick={handleEditLogin}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -220,7 +220,7 @@ const LogoDialog = ({ handleUpload, handleClose, logoDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleUpload}>Upload</button>
+          <button type="button" className="btn btn-primary" onClick={handleUpload}>Applica</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
