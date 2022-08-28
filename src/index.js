@@ -9,6 +9,7 @@ var fileImg = null;
 var temp = "";
 var temp2 = "";
 var temp3 = "";
+var tempColor = "";
 var tempAppTitle = "";
 var tempAppLink = "";
 var tempIcon = "";
@@ -30,12 +31,16 @@ var spData = require("./initData.json");
 var headTitle = spData.headTitle;
 var headSubtitle = spData.headSubtitle;
 var headSubtitleLink = spData.headSubtitleLink;
+var headColor = spData.headColor;
 var footTitle = spData.footTitle;
 var footSubtitle = spData.footSubtitle;
 var footSubtitle2 = spData.footSubtitle2;
+var footInfoColor = spData.footInfoColor;
 var footCreditiTitle = spData.footCreditiTitle;
 var footCreditiSubtitle = spData.footCreditiSubtitle;
 var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+var footCreditColor = spData.footCreditColor;
+var clockColor = spData.clockColor;
 // var user = spData.user;
 // var password = spData.password;
 
@@ -262,16 +267,6 @@ async function comparePassword(plaintextPassword, hash) {
   const result = await bcrypt.compare(plaintextPassword, hash);
   return result;
 }
-
-// function comparePassword(plaintextPassword, hash) {
-//   bcrypt.compare(plaintextPassword, hash)
-//     .then(result => {
-//       return result
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-// }
 
 class Main extends React.Component {
   constructor(props) {
@@ -1264,7 +1259,11 @@ class Main extends React.Component {
               <form id="titleForm">
                 <div className="form-group">
                   <label>Nome Istituto</label>
-                  <input type="text" className="form-control" onChange={e => temp = e.target.value} placeholder={spData.headTitle} />
+                  <input type="text" className="form-control" defaultValue={spData.headTitle} onChange={e => temp = e.target.value} /*placeholder={spData.headTitle}*/ />
+                </div>
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1309,6 +1308,10 @@ class Main extends React.Component {
                   <label>Scegli un file immagine per il logo (Max 1 MB)</label>
                   <input type="file" className="form-control" name="image" onChange={e => fileImg = e.target.files[0]} />
                 </div>
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
                     <div className="col">
@@ -1350,15 +1353,19 @@ class Main extends React.Component {
               <form id="infoForm">
                 <div className="form-group">
                   <label>Nome Istituto</label>
-                  <input type="text" className="form-control" onChange={e => temp = e.target.value} placeholder={spData.footTitle} />
+                  <input type="text" className="form-control" defaultValue={spData.footTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footTitle}*/ />
                 </div>
                 <div className="form-group">
                   <label>Indirizzo Istituto</label>
-                  <input type="text" className="form-control" onChange={e => temp2 = e.target.value} placeholder={spData.footSubtitle} />
+                  <input type="text" className="form-control" defaultValue={spData.footSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footSubtitle}*/ />
                 </div>
                 <div className="form-group">
                   <label>Telefono Istituto</label>
-                  <input type="text" className="form-control" onChange={e => temp3 = e.target.value} placeholder={spData.footSubtitle2} />
+                  <input type="text" className="form-control" defaultValue={spData.footSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footSubtitle2}*/ />
+                </div>
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1387,15 +1394,19 @@ class Main extends React.Component {
               <form id="creditForm">
                 <div className="form-group">
                   <label>Etichetta Crediti</label>
-                  <input type="text" className="form-control" onChange={e => temp = e.target.value} placeholder={spData.footCreditiTitle} />
+                  <input type="text" className="form-control" defaultValue={spData.footCreditiTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footCreditiTitle}*/ />
                 </div>
                 <div className="form-group">
                   <label>Crediti Pricipale</label>
-                  <input type="text" className="form-control" onChange={e => temp2 = e.target.value} placeholder={spData.footCreditiSubtitle} />
+                  <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footCreditiSubtitle}*/ />
                 </div>
                 <div className="form-group">
                   <label>Crediti Secondario</label>
-                  <input type="text" className="form-control" onChange={e => temp3 = e.target.value} placeholder={spData.footCreditiSubtitle2} />
+                  <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footCreditiSubtitle2}*/ />
+                </div>
+                <div className="form-group">
+                  <label>Colore sfondo</label>
+                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1428,11 +1439,11 @@ class Main extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Titolo Applicazione</label>
-                  <input type="text" className="form-control" onChange={e => temp2 = e.target.value} placeholder={tempAppTitle} />
+                  <input type="text" className="form-control" defaultValue={tempAppTitle} onChange={e => temp2 = e.target.value} /*placeholder={tempAppTitle}*/ />
                 </div>
                 <div className="form-group">
                   <label>Link Applicazione</label>
-                  <input type="text" className="form-control" onChange={e => temp3 = e.target.value} placeholder={tempAppLink} />
+                  <input type="text" className="form-control" defaultValue={tempAppLink} onChange={e => temp3 = e.target.value} /*placeholder={tempAppLink}*/ />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
