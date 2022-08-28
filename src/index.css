@@ -1,5 +1,16 @@
+:root {
+	--logo-color: rgba(0, 119, 200, 0.7);
+	--head-color: rgba(0, 119, 200, 0.95);
+	--footinfo-color: rgba(0, 119, 200, 0.7);
+	--footcredit-color: rgba(0, 177, 64, 0.95);
+	--clock-color: rgba(216, 66, 6, 0.7);
+	--background-color: rgba(255, 238, 204, 0.7);
+	
+	--background-image: url(./srcimg/background.jpg);
+}
+
 body {
-	background: url(./srcimg/background.jpg) no-repeat center center fixed;
+	background: var(--background-image) no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;

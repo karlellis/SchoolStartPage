@@ -9,7 +9,8 @@ var fileImg = null;
 var temp = "";
 var temp2 = "";
 var temp3 = "";
-var tempColor = "";
+var tempColor = "#0077c8";
+var tempOpacity = "";
 var tempAppTitle = "";
 var tempAppLink = "";
 var tempIcon = "";
@@ -299,6 +300,10 @@ async function comparePassword(plaintextPassword, hash) {
   return result;
 }
 
+// function setColor(newColor) {
+//   document.documentElement.style.setProperty('--logo-color', newColor);
+// }
+
 class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -356,6 +361,11 @@ class Main extends React.Component {
         footCreditiTitle = spData.footCreditiTitle;
         footCreditiSubtitle = spData.footCreditiSubtitle;
         footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+        headColor = spData.headColor;
+        logoColor = spData.logoColor;
+        footInfoColor = spData.footInfoColor;
+        footCreditColor = spData.footCreditColor;
+        clockColor = spData.clockColor;
         // user = spData.user;
         // password = spData.password;
         // console.log("Check password: ", comparePassword("admin", password));
@@ -384,6 +394,9 @@ class Main extends React.Component {
       // var nome = fileImg.name;
       if (url === "logo" && op === "edit") {
         spData.LogoIcon = "./img/" + nome;
+        spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+        logoColor = spData.logoColor;
+        tempColor = "";
         this.setState({ upShow: false });
         this.setState({ alShow: true });
         this.setState({ alErrShow: false });
@@ -475,10 +488,32 @@ class Main extends React.Component {
     // }
   }
 
+  hexToRgb(hex) {
+    hex = hex.replace(/[^0-9A-F]/gi, '');
+    var bigint = parseInt(hex, 16);
+    var r = (bigint >> 16) & 255;
+    var g = (bigint >> 8) & 255;
+    var b = bigint & 255;
+
+    return "rgba(" + r + ", " + g + ", " + b;
+  }
+
+  rgbToHex(rgb) {
+    rgb = rgb.replace(/[^\d,]/g, '').split(',');
+    var r = parseInt(rgb[0]);
+    var g = parseInt(rgb[1]);
+    var b = parseInt(rgb[2]);
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+  }
+
   saveTitle = () => {
     if (temp !== "") {
       spData.headTitle = temp;
       headTitle = spData.headTitle;
+      spData.headColor = this.hexToRgb(tempColor) + ", 0.95)";
+      headColor = spData.headColor;
+      console.log(headColor);
+      tempColor = "";
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
     }
@@ -486,7 +521,15 @@ class Main extends React.Component {
       this.setState({ alErrShow: true });
       this.setState({ alShow: false });
     }
-    temp = "";
+  }
+
+  saveClock = () => {
+    // console.log(tempColor);
+    spData.clockColor = this.hexToRgb(tempColor) + ", 0.7)";
+    clockColor = spData.clockColor;
+    tempColor = "";
+    this.setState({ alShow: true });
+    this.setState({ alErrShow: false });
   }
 
   saveInfo = () => {
@@ -502,6 +545,9 @@ class Main extends React.Component {
       spData.footSubtitle2 = temp3;
       footSubtitle2 = spData.footSubtitle2;
     }
+    spData.footInfoColor = this.hexToRgb(tempColor) + ", 0.7)";
+    footInfoColor = spData.footInfoColor;
+    tempColor = "";
     temp = "";
     temp2 = "";
     temp3 = "";
@@ -521,6 +567,9 @@ class Main extends React.Component {
       spData.footCreditiSubtitle2 = temp3;
       footCreditiSubtitle2 = spData.footCreditiSubtitle2;
     }
+    spData.footCreditColor = this.hexToRgb(tempColor) + ", 0.7)";
+    footCreditColor = spData.footCreditColor;
+    tempColor = "";
     temp = "";
     temp2 = "";
     temp3 = "";
@@ -584,6 +633,13 @@ class Main extends React.Component {
       // var nome = fileImg.name;
       tempIcon = spData.LogoIcon;
       this.saveImgFile(fileImg, "logo", "edit");
+    } else {
+      spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+      logoColor = spData.logoColor;
+      tempColor = "";
+      this.setState({ upShow: false });
+      this.setState({ alShow: true });
+      this.setState({ alErrShow: false });
     }
   }
 
@@ -657,6 +713,7 @@ class Main extends React.Component {
 
   showModal(id) {
     if (id === "title") {
+      temp = spData.headTitle;
       this.setState({ titleDiaShow: true });
     } else if (id === "login") {
       this.setState({ loginDiaShow: true });
@@ -664,9 +721,12 @@ class Main extends React.Component {
       this.setState({ loginEditDiaShow: true });
     } else if (id === "logo") {
       this.setState({ logoDiaShow: true });
+      logoColor = spData.logoColor;
     } else if (id === "info") {
+      logoColor = spData.footInfoColor;
       this.setState({ infoDiaShow: true });
     } else if (id === "credit") {
+      logoColor = spData.footCreditColor;
       this.setState({ creditDiaShow: true });
     } else if (id === "appEdit") {
       this.setState({ appEditDiaShow: true });
@@ -677,6 +737,7 @@ class Main extends React.Component {
     } else if (id === "back") {
       this.setState({ backEditDiaShow: true });
     } else if (id === "clock") {
+      logoColor = spData.clockColor;
       this.setState({ clockDiaShow: true });
     }
   };
@@ -703,6 +764,12 @@ class Main extends React.Component {
     document.getElementById('creditForm').reset();
     document.getElementById('appEditForm').reset();
     document.getElementById('appAddForm').reset();
+    document.getElementById('backEditForm').reset();
+    document.getElementById('clockForm').reset();
+    tempColor = "";
+    temp = "";
+    temp2 = "";
+    temp3 = "";
   };
 
   hideAlert = () => {
@@ -844,7 +911,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" className="col solidblue latowhite d-flex justify-content-center 
+              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex justify-content-center 
               align-items-center ">
                 <div>
                   <p className="medfont">{headTitle}</p>
@@ -856,7 +923,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" className="col-md logo blue d-flex justify-content-center align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
                 <LogoImg />
               </div>
               {/* OROLOGIO */}
@@ -874,7 +941,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" className="col solidblue latowhite d-flex flex-column justify-content-end align-items-center">
+              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center">
                 <div>
                   <p className="medfont">{headTitle}</p>
                   <p className="smallfont" title={headSubtitle}>
@@ -891,7 +958,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" className="col-md logo blue d-flex flex-column justify-content-end align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex flex-column justify-content-end align-items-center">
                 <LogoImg />
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col latowhite flexbutton solidgreen m-1" onClick={() => this.headLogoEdit("LogoEdit")}>
@@ -922,7 +989,7 @@ class Main extends React.Component {
               {/* TITOLO */}
               {/* LOGO */}
               {/* OROLOGIO */}
-              <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center">
+              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
                 <Orologio></Orologio>
               </div>
               {/* SETTINGS */}
@@ -945,7 +1012,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" className="col solidblue latowhite d-flex justify-content-center align-items-center ">
+              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex justify-content-center align-items-center ">
                 <div>
                   <p className="medfont">{headTitle}</p>
                   <p className="smallfont" title={headSubtitle}>
@@ -956,11 +1023,11 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" className="col-md logo blue d-flex justify-content-center align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
                 <LogoImg />
               </div>
               {/* OROLOGIO */}
-              <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center">
+              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
                 <Orologio></Orologio>
               </div>
               {/* SETTINGS */}
@@ -977,7 +1044,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" className="col solidblue latowhite d-flex flex-column justify-content-end align-items-center">
+              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col solidblue latowhite d-flex flex-column justify-content-end align-items-center">
                 <div>
                   <p className="medfont">{headTitle}</p>
                   <p className="smallfont" title={headSubtitle}>
@@ -993,7 +1060,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" className="col-md logo blue d-flex flex-column justify-content-end align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo blue d-flex flex-column justify-content-end align-items-center">
                 <LogoImg />
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col latowhite flexbutton solidgreen m-1" onClick={() => this.headLogoEdit("LogoEdit")}>
@@ -1002,8 +1069,8 @@ class Main extends React.Component {
                 </div>
               </div>
               {/* OROLOGIO */}
-              <div id="HeadDate" className="col-md logo latowhite brick d-flex flex-column justify-content-end align-items-center">
-              {/* <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center"> */}
+              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite brick d-flex flex-column justify-content-end align-items-center">
+                {/* <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center"> */}
                 <Orologio></Orologio>
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col flexbutton solidgreen m-1" onClick={() => this.clockEdit()}>
@@ -1073,7 +1140,7 @@ class Main extends React.Component {
             <div className="row">
               {/* INFO */}
               {/* CREDITI */}
-              <section className="col pt-1 crediti solidgreen latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: footCreditColor }} className="col pt-1 crediti latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
                   <a className="smallfont">{footCreditiTitle}</a>
                   <br />
@@ -1093,7 +1160,7 @@ class Main extends React.Component {
             <div className="row">
               {/* INFO */}
               {/* CREDITI */}
-              <section className="col solidgreen crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: footCreditColor }} className="col crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
                   <a className="smallfont">{footCreditiTitle}</a>
                   <br />
@@ -1117,7 +1184,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section className="col blue pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
                   <a className="medfont">{footTitle}</a>
                   <br />
@@ -1137,7 +1204,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section className="col blue latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
                   <a className="medfont">{footTitle}</a>
                   <br />
@@ -1162,7 +1229,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section className="col blue latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
                   <a className="medfont">{footTitle}</a>
                   <br />
@@ -1177,7 +1244,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* CREDITI */}
-              <section className="col-md solidgreen crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: footCreditColor }} className="col-md crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
                   <a className="smallfont">{footCreditiTitle}</a>
                   <br />
@@ -1201,7 +1268,7 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section className="col blue pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
                   <a className="medfont">{footTitle}</a>
                   <br />
@@ -1211,7 +1278,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* CREDITI */}
-              <section className="col-md-3 pt-1 solidgreen latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: footCreditColor }} className="col-md-3 pt-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
                   <a className="smallfont">{footCreditiTitle}</a>
                   <br />
@@ -1235,7 +1302,7 @@ class Main extends React.Component {
               <h5 className="modal-title" >Login</h5>
             </div>
             <div className="modal-body">
-              <form id="loginEditForm">
+              <form id="loginForm">
                 <div className="form-group">
                   <label>Utente</label>
                   <input type="text" className="form-control"
@@ -1267,7 +1334,7 @@ class Main extends React.Component {
               <h5 className="modal-title" >Edit Login</h5>
             </div>
             <div className="modal-body">
-              <form id="loginForm">
+              <form id="loginEditForm">
                 <div className="form-group">
                   <label>Utente</label>
                   <input type="text" className="form-control"
@@ -1320,7 +1387,7 @@ class Main extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.headColor)} onChange={e => tempColor = e.target.value} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1328,8 +1395,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifica Salvata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifica applicata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1354,16 +1421,16 @@ class Main extends React.Component {
             </div>
           </div>
         </TitleDialog>
-        <ClockDialog clockDiaShow={this.state.clockDiaShow} handleClose={this.hideModal} handleSave={this.clockEdit}>
+        <ClockDialog clockDiaShow={this.state.clockDiaShow} handleClose={this.hideModal} handleSave={this.saveClock}>
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" >Modifica sfondo Orologio</h5>
             </div>
             <div className="modal-body">
-              <form id="titleForm">
+              <form id="clockForm">
                 <div className="form-group">
                   <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.clockColor)} onChange={e => tempColor = e.target.value} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1371,8 +1438,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifica Salvata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifica applicata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1400,17 +1467,17 @@ class Main extends React.Component {
         <LogoDialog logoDiaShow={this.state.logoDiaShow} handleClose={this.hideModal} handleUpload={this.uploadCheck}>
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" >Upload logo</h5>
+              <h5 className="modal-title" >Modifica logo</h5>
             </div>
             <div className="modal-body">
-              <form id="logoForm" encType="multipart/form-data">
+              <form id="logoForm">
                 <div className="form-group">
                   <label>Scegli un file immagine per il logo (Max 1 MB)</label>
                   <input type="file" className="form-control" name="image" onChange={e => fileImg = e.target.files[0]} />
                 </div>
                 <div className="form-group">
                   <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.logoColor)} onChange={e => tempColor = e.target.value} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1418,8 +1485,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">File caricato correttamente!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifica applicata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1465,7 +1532,7 @@ class Main extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footInfoColor)} onChange={e => tempColor = e.target.value} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1473,8 +1540,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifica Salvata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifica applicata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1506,7 +1573,7 @@ class Main extends React.Component {
                 </div>
                 <div className="form-group">
                   <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footCreditColor)} onChange={e => tempColor = e.target.value} />
                 </div>
                 <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                   <div className="row text-center pt-2">
@@ -1514,8 +1581,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifica Salvata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifica applicata!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salavare.</p>
                           </div>
                         </section>
                       </div>
@@ -1526,7 +1593,6 @@ class Main extends React.Component {
             </div>
           </div>
         </CreditDialog>
-
         <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} handleClose={this.hideModal} handleSave={this.backEdit}>
           <div className="modal-content">
             <div className="modal-header">
@@ -1548,8 +1614,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifiche Salvate!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifiche applicate!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1574,7 +1640,6 @@ class Main extends React.Component {
             </div>
           </div>
         </BackEditDialog>
-
         <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
           <div className="modal-content">
             <div className="modal-header">
@@ -1600,8 +1665,8 @@ class Main extends React.Component {
                       <div className="row">
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
-                            <p className="norfont">Modifiche Salvate!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="norfont">Modifiche applicate!</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1656,7 +1721,7 @@ class Main extends React.Component {
                         <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                           <div>
                             <p className="norfont">App aggiunta!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                           </div>
                         </section>
                       </div>
@@ -1708,7 +1773,7 @@ class Main extends React.Component {
                       <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
                         <div>
                           <p className="norfont">Applicazione Rimossa!</p>
-                          <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                          <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                         </div>
                       </section>
                     </div>
