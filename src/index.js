@@ -723,10 +723,10 @@ class Main extends React.Component {
       this.setState({ logoDiaShow: true });
       logoColor = spData.logoColor;
     } else if (id === "info") {
-      logoColor = spData.footInfoColor;
+      footInfoColor = spData.footInfoColor;
       this.setState({ infoDiaShow: true });
     } else if (id === "credit") {
-      logoColor = spData.footCreditColor;
+      footCreditColor = spData.footCreditColor;
       this.setState({ creditDiaShow: true });
     } else if (id === "appEdit") {
       this.setState({ appEditDiaShow: true });
@@ -737,7 +737,7 @@ class Main extends React.Component {
     } else if (id === "back") {
       this.setState({ backEditDiaShow: true });
     } else if (id === "clock") {
-      logoColor = spData.clockColor;
+      clockColor = spData.clockColor;
       this.setState({ clockDiaShow: true });
     }
   };
