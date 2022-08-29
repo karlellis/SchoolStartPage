@@ -10,7 +10,7 @@ var temp = "";
 var temp2 = "";
 var temp3 = "";
 var tempColor = "#0077c8";
-var tempOpacity = "";
+// var tempOpacity = "";
 var tempAppTitle = "";
 var tempAppLink = "";
 var tempIcon = "";
@@ -24,7 +24,7 @@ var newItem = {
   "link": "",
   "icon": ""
 };
-var flag = "";
+// var flag = "";
 var nome = "";
 
 // initData not really necessary...
@@ -256,7 +256,7 @@ async function fetchUpPHP(file, url, key) {
     .then((json) => {
       nome = json.filename;
       console.log("Image Upload:", nome);
-      flag = json.status;
+      // flag = json.status;
     });
 }
 
@@ -383,107 +383,200 @@ class Main extends React.Component {
     fetchUpConfig(file, url, key);
   }
 
-  checkImageUpload(url, op) {
-    if (flag === "") {
-      console.log("Wait...")
-      window.setTimeout(() => { this.checkImageUpload(url, op); }, 300);
-    } else {
-      console.log("Continue...")
-      // sleep(1000).then(r => {
-      flag = "";
-      // var nome = fileImg.name;
-      if (url === "logo" && op === "edit") {
-        spData.LogoIcon = "./img/" + nome;
-        spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
-        logoColor = spData.logoColor;
-        tempColor = "";
-        this.setState({ upShow: false });
-        this.setState({ alShow: true });
-        this.setState({ alErrShow: false });
-        console.log("File correctly Uploaded!");
-      } else if (url === "icon" && op === "edit") {
-        if (fileImg !== null) {
-          console.log("Icon edit!");
-          array[temp].icon = "./appicons/" + nome;
-        }
-        if (temp2 !== "") {
-          array[temp].title = temp2;
-        }
-        if (temp3 !== "") {
-          array[temp].link = temp3;
-        }
-        this.setState({ appItems: array });
-        spData.appItems = array;
-        temp = "";
-        temp2 = "";
-        temp3 = "";
-        this.setState({ upShow: false });
-        this.setState({ alShow: true });
-        this.setState({ alErrShow: false });
-        console.log("Edit Icon correctly Uploaded!");
-      } else if (url === "icon" && op === "add") {
-        newItem.icon = "./appicons/" + nome;
-        newItem.title = temp2;
-        newItem.link = temp3;
-        tempIcon = "";
-        arrayAdd = this.addAfter(array, inPos, newItem);
-        console.log("Insert pos=", (inPos));
-        this.setState({ appItems: arrayAdd });
-        spData.appItems = arrayAdd;
-        arrayAdd = [];
-        temp = "";
-        temp2 = "";
-        temp3 = "";
-        newItem = {
-          "title": "",
-          "link": "",
-          "icon": ""
-        };
-        this.setState({ upShow: false });
-        this.setState({ alShow: true });
-        this.setState({ alErrShow: false });
-        console.log("Add Icon correctly Uploaded!");
-      } else if (url === "icon" && op === "addlast") {
-        newItem.icon = "./appicons/" + nome;
-        newItem.title = temp2;
-        newItem.link = temp3;
-        inPos = arrayLength;
-        tempIcon = "";
-        arrayAdd = this.addAfter(array, inPos, newItem);
-        this.setState({ appItems: arrayAdd });
-        spData.appItems = arrayAdd;
-        arrayAdd = [];
-        temp = "";
-        temp2 = "";
-        temp3 = "";
-        newItem = {
-          "title": "",
-          "link": "",
-          "icon": ""
-        };
-        this.setState({ upShow: false });
-        this.setState({ alShow: true });
-        this.setState({ alErrShow: false });
-        console.log("Add Last Icon correctly Uploaded!");
-      }
-      fileImg = null;
-      // })
-    }
-  }
+  // checkImageUpload(url, op) {
+  //   if (flag === "") {
+  //     console.log("Wait...")
+  //     window.setTimeout(() => { this.checkImageUpload(url, op); }, 300);
+  //   } else {
+  //     console.log("Continue...")
+  //     // sleep(1000).then(r => {
+  //     flag = "";
+  //     // var nome = fileImg.name;
+  //     if (url === "logo" && op === "edit") {
+  //       spData.LogoIcon = "./img/" + nome;
+  //       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+  //       logoColor = spData.logoColor;
+  //       tempColor = "";
+  //       this.setState({ upShow: false });
+  //       this.setState({ alShow: true });
+  //       this.setState({ alErrShow: false });
+  //       console.log("File correctly Uploaded!");
+  //     } else if (url === "icon" && op === "edit") {
+  //       if (fileImg !== null) {
+  //         console.log("Icon edit!");
+  //         array[temp].icon = "./appicons/" + nome;
+  //       }
+  //       if (temp2 !== "") {
+  //         array[temp].title = temp2;
+  //       }
+  //       if (temp3 !== "") {
+  //         array[temp].link = temp3;
+  //       }
+  //       this.setState({ appItems: array });
+  //       spData.appItems = array;
+  //       temp = "";
+  //       temp2 = "";
+  //       temp3 = "";
+  //       this.setState({ upShow: false });
+  //       this.setState({ alShow: true });
+  //       this.setState({ alErrShow: false });
+  //       console.log("Edit Icon correctly Uploaded!");
+  //     } else if (url === "icon" && op === "add") {
+  //       newItem.icon = "./appicons/" + nome;
+  //       newItem.title = temp2;
+  //       newItem.link = temp3;
+  //       tempIcon = "";
+  //       arrayAdd = this.addAfter(array, inPos, newItem);
+  //       console.log("Insert pos=", (inPos));
+  //       this.setState({ appItems: arrayAdd });
+  //       spData.appItems = arrayAdd;
+  //       arrayAdd = [];
+  //       temp = "";
+  //       temp2 = "";
+  //       temp3 = "";
+  //       newItem = {
+  //         "title": "",
+  //         "link": "",
+  //         "icon": ""
+  //       };
+  //       this.setState({ upShow: false });
+  //       this.setState({ alShow: true });
+  //       this.setState({ alErrShow: false });
+  //       console.log("Add Icon correctly Uploaded!");
+  //     } else if (url === "icon" && op === "addlast") {
+  //       newItem.icon = "./appicons/" + nome;
+  //       newItem.title = temp2;
+  //       newItem.link = temp3;
+  //       inPos = arrayLength;
+  //       tempIcon = "";
+  //       arrayAdd = this.addAfter(array, inPos, newItem);
+  //       this.setState({ appItems: arrayAdd });
+  //       spData.appItems = arrayAdd;
+  //       arrayAdd = [];
+  //       temp = "";
+  //       temp2 = "";
+  //       temp3 = "";
+  //       newItem = {
+  //         "title": "",
+  //         "link": "",
+  //         "icon": ""
+  //       };
+  //       this.setState({ upShow: false });
+  //       this.setState({ alShow: true });
+  //       this.setState({ alErrShow: false });
+  //       console.log("Add Last Icon correctly Uploaded!");
+  //     }
+  //     fileImg = null;
+  //     // })
+  //   }
+  // }
 
   saveImgFile(file, url, op) {
     if (fileImg !== null) {
       // tempIcon = spData.LogoIcon;
-      fetchDelPHP(tempIcon, "./api/img-upload.php", url);
-      console.log("Image deleted=", tempIcon);
+      fetchDelPHP(tempIcon, "./api/img-upload.php", url)
+        .then(res => {
+          console.log("Seems deleted!");
+          // console.log("Delete result=", res);
+        });
+
     }
     // sleep(1000).then(r => {
     tempIcon = "";
     this.setState({ alErrShow: false });
     this.setState({ upShow: true });
     this.setState({ alShow: false });
-    fetchUpPHP(file, "./api/img-upload.php", url);
-    this.checkImageUpload(url, op);
+    fetchUpPHP(file, "./api/img-upload.php", url)
+      .then(res => {
+        // console.log("Upload result=", res);
+        // if (flag === "") {
+        //   console.log("Wait...")
+        //   window.setTimeout(() => { this.checkImageUpload(url, op); }, 300);
+        // } else {
+        console.log("Continue...")
+        // sleep(1000).then(r => {
+        // flag = "";
+        // var nome = fileImg.name;
+        if (url === "logo" && op === "edit") {
+          spData.LogoIcon = "./img/" + nome;
+          // spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+          // logoColor = spData.logoColor;
+          // tempColor = "";
+          this.setState({ upShow: false });
+          this.setState({ alShow: true });
+          this.setState({ alErrShow: false });
+          console.log("File correctly Uploaded!");
+        } else if (url === "icon" && op === "edit") {
+          if (fileImg !== null) {
+            console.log("Icon edit!");
+            array[temp].icon = "./appicons/" + nome;
+          }
+          if (temp2 !== "") {
+            array[temp].title = temp2;
+          }
+          if (temp3 !== "") {
+            array[temp].link = temp3;
+          }
+          this.setState({ appItems: array });
+          spData.appItems = array;
+          temp = "";
+          temp2 = "";
+          temp3 = "";
+          this.setState({ upShow: false });
+          this.setState({ alShow: true });
+          this.setState({ alErrShow: false });
+          console.log("Edit Icon correctly Uploaded!");
+        } else if (url === "icon" && op === "add") {
+          newItem.icon = "./appicons/" + nome;
+          newItem.title = temp2;
+          newItem.link = temp3;
+          tempIcon = "";
+          arrayAdd = this.addAfter(array, inPos, newItem);
+          console.log("Insert pos=", (inPos));
+          this.setState({ appItems: arrayAdd });
+          spData.appItems = arrayAdd;
+          arrayAdd = [];
+          temp = "";
+          temp2 = "";
+          temp3 = "";
+          newItem = {
+            "title": "",
+            "link": "",
+            "icon": ""
+          };
+          this.setState({ upShow: false });
+          this.setState({ alShow: true });
+          this.setState({ alErrShow: false });
+          console.log("Add Icon correctly Uploaded!");
+        } else if (url === "icon" && op === "addlast") {
+          newItem.icon = "./appicons/" + nome;
+          newItem.title = temp2;
+          newItem.link = temp3;
+          inPos = arrayLength;
+          tempIcon = "";
+          arrayAdd = this.addAfter(array, inPos, newItem);
+          this.setState({ appItems: arrayAdd });
+          spData.appItems = arrayAdd;
+          arrayAdd = [];
+          temp = "";
+          temp2 = "";
+          temp3 = "";
+          newItem = {
+            "title": "",
+            "link": "",
+            "icon": ""
+          };
+          this.setState({ upShow: false });
+          this.setState({ alShow: true });
+          this.setState({ alErrShow: false });
+          console.log("Add Last Icon correctly Uploaded!");
+        }
+        fileImg = null;
+        // })
+        // }
+        // console.log("Result=", user);
+      });
+    // this.checkImageUpload(url, op);
     // });
     // }
   }
@@ -628,11 +721,14 @@ class Main extends React.Component {
     }
   }
 
-  uploadCheck = () => {
+  saveLogo = () => {
     if (fileImg !== null) {
       // var nome = fileImg.name;
       tempIcon = spData.LogoIcon;
       this.saveImgFile(fileImg, "logo", "edit");
+      spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+      logoColor = spData.logoColor;
+      tempColor = "";
     } else {
       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
       logoColor = spData.logoColor;
@@ -714,19 +810,20 @@ class Main extends React.Component {
   showModal(id) {
     if (id === "title") {
       temp = spData.headTitle;
+      tempColor = this.rgbToHex(spData.headColor);
       this.setState({ titleDiaShow: true });
     } else if (id === "login") {
       this.setState({ loginDiaShow: true });
     } else if (id === "loginEdit") {
       this.setState({ loginEditDiaShow: true });
     } else if (id === "logo") {
+      tempColor = this.rgbToHex(spData.logoColor);
       this.setState({ logoDiaShow: true });
-      logoColor = spData.logoColor;
     } else if (id === "info") {
-      footInfoColor = spData.footInfoColor;
+      tempColor = this.rgbToHex(spData.footInfoColor);
       this.setState({ infoDiaShow: true });
     } else if (id === "credit") {
-      footCreditColor = spData.footCreditColor;
+      tempColor = this.rgbToHex(spData.footCreditColor);
       this.setState({ creditDiaShow: true });
     } else if (id === "appEdit") {
       this.setState({ appEditDiaShow: true });
@@ -737,10 +834,41 @@ class Main extends React.Component {
     } else if (id === "back") {
       this.setState({ backEditDiaShow: true });
     } else if (id === "clock") {
-      clockColor = spData.clockColor;
+      tempColor = this.rgbToHex(spData.clockColor);
       this.setState({ clockDiaShow: true });
     }
   };
+
+  // showModal(id) {
+  //   if (id === "title") {
+  //     temp = spData.headTitle;
+  //     this.setState({ titleDiaShow: true });
+  //   } else if (id === "login") {
+  //     this.setState({ loginDiaShow: true });
+  //   } else if (id === "loginEdit") {
+  //     this.setState({ loginEditDiaShow: true });
+  //   } else if (id === "logo") {
+  //     this.setState({ logoDiaShow: true });
+  //     logoColor = spData.logoColor;
+  //   } else if (id === "info") {
+  //     footInfoColor = spData.footInfoColor;
+  //     this.setState({ infoDiaShow: true });
+  //   } else if (id === "credit") {
+  //     footCreditColor = spData.footCreditColor;
+  //     this.setState({ creditDiaShow: true });
+  //   } else if (id === "appEdit") {
+  //     this.setState({ appEditDiaShow: true });
+  //   } else if (id === "appDel") {
+  //     this.setState({ appDelDiaShow: true });
+  //   } else if (id === "appAdd") {
+  //     this.setState({ appAddDiaShow: true });
+  //   } else if (id === "back") {
+  //     this.setState({ backEditDiaShow: true });
+  //   } else if (id === "clock") {
+  //     clockColor = spData.clockColor;
+  //     this.setState({ clockDiaShow: true });
+  //   }
+  // };
 
   hideModal(id) {
     this.setState({ titleDiaShow: false });
@@ -1464,7 +1592,7 @@ class Main extends React.Component {
             </div>
           </div>
         </ClockDialog>
-        <LogoDialog logoDiaShow={this.state.logoDiaShow} handleClose={this.hideModal} handleUpload={this.uploadCheck}>
+        <LogoDialog logoDiaShow={this.state.logoDiaShow} handleClose={this.hideModal} handleUpload={this.saveLogo}>
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" >Modifica logo</h5>
