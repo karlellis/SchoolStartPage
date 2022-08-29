@@ -19,11 +19,43 @@ if ($_FILES['logo']) {
             "message" => "Error uploading the file!"
         );
     } else {
-        $random_name = rand(1000,1000000)."-".$logo_name;
+        $random_name = rand(1000, 1000000) . "-" . $logo_name;
         $upload_name = $upload_dir . $random_name;
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
         if (move_uploaded_file($logo_tmp_name, $upload_name)) {
+            $response = array(
+                "status" => "success",
+                "error" => false,
+                "message" => "UploadOk",
+                "filename" => $random_name
+            );
+        } else {
+            $response = array(
+                "status" => "error",
+                "error" => true,
+                "message" => "UploadError"
+            );
+        }
+    }
+} else if ($_FILES['back']) {
+    $upload_dir = '../img/';
+    $back_name = $_FILES["back"]["name"];
+    $back_tmp_name = $_FILES["back"]["tmp_name"];
+    $error = $_FILES["back"]["error"];
+
+    if ($error > 0) {
+        $response = array(
+            "status" => "error",
+            "error" => true,
+            "message" => "Error uploading the file!"
+        );
+    } else {
+        $random_name = rand(1000, 1000000) . "-" . $back_name;
+        $upload_name = $upload_dir . $random_name;
+        $upload_name = preg_replace('/\s+/', '-', $upload_name);
+
+        if (move_uploaded_file($back_tmp_name, $upload_name)) {
             $response = array(
                 "status" => "success",
                 "error" => false,
@@ -51,7 +83,7 @@ if ($_FILES['logo']) {
             "message" => "UploadError"
         );
     } else {
-        $random_name = rand(1000,1000000)."-".$icon_name;
+        $random_name = rand(1000, 1000000) . "-" . $icon_name;
         $upload_name = $upload_dir . $random_name;
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
 
@@ -87,7 +119,7 @@ if ($_FILES['logo']) {
                 "status" => "success",
                 "error" => false,
                 "message" => "JsonOk",
-            );            
+            );
         } else {
             $response = array(
                 "status" => "error",
@@ -112,7 +144,32 @@ if ($_FILES['logo']) {
                 "status" => "success",
                 "error" => false,
                 "message" => "DeleteOk",
-            );  
+            );
+        } else {
+            $response = array(
+                "status" => "error",
+                "error" => true,
+                "message" => "DeleteError"
+            );
+        }
+    }
+}  else if ($_POST['back']) {
+    $del_name = $_POST["back"];
+    $error = $_POST["back"]["error"];
+
+    if ($error > 0) {
+        $response = array(
+            "status" => "error",
+            "error" => true,
+            "message" => "DeleteError"
+        );
+    } else {
+        if (unlink("." . $del_name)) {
+            $response = array(
+                "status" => "success",
+                "error" => false,
+                "message" => "DeleteOk",
+            );
         } else {
             $response = array(
                 "status" => "error",
@@ -137,7 +194,7 @@ if ($_FILES['logo']) {
                 "status" => "success",
                 "error" => false,
                 "message" => "DeleteOk",
-            );  
+            );
         } else {
             $response = array(
                 "status" => "error",

@@ -43,6 +43,27 @@ var footCreditiSubtitle = spData.footCreditiSubtitle;
 var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
 var footCreditColor = spData.footCreditColor;
 var clockColor = spData.clockColor;
+var backgroundColor = spData.backgroundColor;
+var backgroundImg = spData.backgroundImage;
+// var backStyle = {
+//   background: "url(" + backgroundImg + ")",
+//   backgroundPosition: 'center',
+//   backgroundSize: 'cover',
+//   backgroundRepeat: 'no-repeat',
+//   width: '100vw',
+//   height: '100vh'
+// };
+var backStyle = {
+  backgroundImage: "url(" + spData.backgroundImage + ")",
+  backgroundPosition: 'center',
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundAttachment: "fixed"
+};
+// var backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
+// var backgroundImg = getComputedStyle(document.documentElement).getPropertyValue('--background-image');
+// console.log("First BackgroundImage=", backgroundImg);
+
 // var user = spData.user;
 // var password = spData.password;
 
@@ -122,30 +143,30 @@ const InfoDialog = ({ handleSave, handleClose, infoDiaShow, children }) => {
   );
 };
 
-const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children }) => {
+const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children, activityChanged }) => {
   const showHideClassName = backEditDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-primary" onClick={handleSave}>Applica</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
     </div>
   );
 };
 
-const AppEditDialog = ({ handleSave, handleClose, appEditDiaShow, children }) => {
+const AppEditDialog = ({ handleSave, handleClose, appEditDiaShow, children, activityChanged }) => {
   const showHideClassName = appEditDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Applica</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-primary" onClick={handleSave}>Applica</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
     </div>
@@ -167,15 +188,15 @@ const AppDelDialog = ({ handleSave, handleClose, appDelDiaShow, children }) => {
   );
 };
 
-const AppAddDialog = ({ handleSave, handleClose, appAddDiaShow, children }) => {
+const AppAddDialog = ({ handleSave, handleClose, appAddDiaShow, children, activityChanged }) => {
   const showHideClassName = appAddDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Aggiungi</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-primary" onClick={handleSave}>Aggiungi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
     </div>
@@ -212,7 +233,7 @@ const LoginEditDialog = ({ handleEditLogin, handleClose, loginEditDiaShow, child
   );
 };
 
-const LogoDialog = ({ handleUpload, handleClose, logoDiaShow, children }) => {
+const LogoDialog = ({ handleUpload, handleClose, logoDiaShow, children, activityChanged }) => {
   const showHideClassName = logoDiaShow ? "modal display-block" : "modal display-none";
 
   return (
@@ -220,8 +241,8 @@ const LogoDialog = ({ handleUpload, handleClose, logoDiaShow, children }) => {
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleUpload}>Applica</button>
-          <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-primary" onClick={handleUpload}>Applica</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
     </div>
@@ -324,7 +345,8 @@ class Main extends React.Component {
       appAddDiaShow: false,
       alShow: false,
       alErrShow: false,
-      upShow: false
+      upShow: false,
+      activityChanged: false
     }
     this.appEditDel = this.appEditDel.bind(this)
     this.appAddItem = this.appAddItem.bind(this)
@@ -366,6 +388,41 @@ class Main extends React.Component {
         footInfoColor = spData.footInfoColor;
         footCreditColor = spData.footCreditColor;
         clockColor = spData.clockColor;
+        backgroundImg = spData.backgroundImage;
+        backgroundColor = spData.backgroundColor;
+        // var backgroundColor = spData.backgroundColor;
+        // var backgroundImg = spData.backgroundImage;
+
+        // backStyle = {
+        //   background: "url(" + backgroundImg + ") no-repeat center center",
+        //   backgroundSize: "cover",
+        //   heigh: "100%",
+        //   width: '100vw',
+        //   height: '100vh'
+        // };
+
+        // backStyle =  {
+        //   backgroundImage: "url(" + spData.backgroundImage + ") no-repeat center center fixed",
+        //   backgroundSize: "cover"
+        // };
+        
+        // backStyle = {
+        //   background: "url(\"" + spData.backgroundImage + "\") no-repeat center center fixed",
+        //   backgroundSize: 'cover',
+        // };
+
+        backStyle = {
+          backgroundImage: "url(" + spData.backgroundImage + ")",
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: "fixed"
+        };
+
+        document.documentElement.style.setProperty('--background-color', backgroundColor);
+        // document.documentElement.style.setProperty('--background-image', backgroundImg);
+        console.log("Background Color: ", backgroundColor);
+        console.log("Background Image: ", backgroundImg);
         // user = spData.user;
         // password = spData.password;
         // console.log("Check password: ", comparePassword("admin", password));
@@ -380,7 +437,11 @@ class Main extends React.Component {
   }
 
   saveFile(file, url, key) {
-    fetchUpConfig(file, url, key);
+    fetchUpConfig(file, url, key)
+      .then(res => {
+        console.log("Config Saved!");
+        // console.log("Delete result=", res);
+      });;
   }
 
   // checkImageUpload(url, op) {
@@ -486,6 +547,9 @@ class Main extends React.Component {
     this.setState({ alErrShow: false });
     this.setState({ upShow: true });
     this.setState({ alShow: false });
+    this.setState({
+      activityChanged: true
+    })
     fetchUpPHP(file, "./api/img-upload.php", url)
       .then(res => {
         // console.log("Upload result=", res);
@@ -506,6 +570,9 @@ class Main extends React.Component {
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
           console.log("File correctly Uploaded!");
+          this.setState({
+            activityChanged: false
+          });
         } else if (url === "icon" && op === "edit") {
           if (fileImg !== null) {
             console.log("Icon edit!");
@@ -526,6 +593,9 @@ class Main extends React.Component {
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
           console.log("Edit Icon correctly Uploaded!");
+          this.setState({
+            activityChanged: false
+          });
         } else if (url === "icon" && op === "add") {
           newItem.icon = "./appicons/" + nome;
           newItem.title = temp2;
@@ -548,6 +618,9 @@ class Main extends React.Component {
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
           console.log("Add Icon correctly Uploaded!");
+          this.setState({
+            activityChanged: false
+          });
         } else if (url === "icon" && op === "addlast") {
           newItem.icon = "./appicons/" + nome;
           newItem.title = temp2;
@@ -570,6 +643,23 @@ class Main extends React.Component {
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
           console.log("Add Last Icon correctly Uploaded!");
+          this.setState({
+            activityChanged: false
+          });
+        } else if (url === "back" && op === "edit") {
+          spData.backgroundImage = "./img/" + nome;
+          // spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
+          // logoColor = spData.logoColor;
+          // tempColor = "";
+          this.setState({ upShow: false });
+          this.setState({ alShow: true });
+          this.setState({ alErrShow: false });
+          console.log("File correctly Uploaded!");
+          backgroundImg = spData.backgroundImage;
+          // document.documentElement.style.setProperty('--background-image', "url(" + spData.backgroundImage + ")");
+          this.setState({
+            activityChanged: false
+          });
         }
         fileImg = null;
         // })
@@ -606,7 +696,7 @@ class Main extends React.Component {
       spData.headColor = this.hexToRgb(tempColor) + ", 0.95)";
       headColor = spData.headColor;
       console.log(headColor);
-      tempColor = "";
+      // tempColor = "";
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
     }
@@ -620,7 +710,7 @@ class Main extends React.Component {
     // console.log(tempColor);
     spData.clockColor = this.hexToRgb(tempColor) + ", 0.7)";
     clockColor = spData.clockColor;
-    tempColor = "";
+    // tempColor = "";
     this.setState({ alShow: true });
     this.setState({ alErrShow: false });
   }
@@ -640,7 +730,7 @@ class Main extends React.Component {
     }
     spData.footInfoColor = this.hexToRgb(tempColor) + ", 0.7)";
     footInfoColor = spData.footInfoColor;
-    tempColor = "";
+    // tempColor = "";
     temp = "";
     temp2 = "";
     temp3 = "";
@@ -662,7 +752,7 @@ class Main extends React.Component {
     }
     spData.footCreditColor = this.hexToRgb(tempColor) + ", 0.7)";
     footCreditColor = spData.footCreditColor;
-    tempColor = "";
+    // tempColor = "";
     temp = "";
     temp2 = "";
     temp3 = "";
@@ -720,6 +810,24 @@ class Main extends React.Component {
       this.setState({ alErrShow: true });
     }
   }
+  saveBack = () => {
+    if (fileImg !== null) {
+      // var nome = fileImg.name;
+      tempIcon = spData.backgroundImage;
+      this.saveImgFile(fileImg, "back", "edit");
+      spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
+      backgroundColor = spData.backgroundColor;
+      document.documentElement.style.setProperty('--background-color', tempColor);
+      // tempColor = "";
+    } else {
+      spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
+      backgroundColor = spData.backgroundColor;
+      // tempColor = "";
+      this.setState({ upShow: false });
+      this.setState({ alShow: true });
+      this.setState({ alErrShow: false });
+    }
+  }
 
   saveLogo = () => {
     if (fileImg !== null) {
@@ -728,11 +836,11 @@ class Main extends React.Component {
       this.saveImgFile(fileImg, "logo", "edit");
       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
       logoColor = spData.logoColor;
-      tempColor = "";
+      // tempColor = "";
     } else {
       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
       logoColor = spData.logoColor;
-      tempColor = "";
+      // tempColor = "";
       this.setState({ upShow: false });
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
@@ -832,6 +940,7 @@ class Main extends React.Component {
     } else if (id === "appAdd") {
       this.setState({ appAddDiaShow: true });
     } else if (id === "back") {
+      tempColor = this.rgbToHex(spData.backgroundColor);
       this.setState({ backEditDiaShow: true });
     } else if (id === "clock") {
       tempColor = this.rgbToHex(spData.clockColor);
@@ -1423,513 +1532,523 @@ class Main extends React.Component {
 
     return (
       // TITOLO, OROLOGIO E BUTTONS
-      <section>
-        <LoginDialog loginDiaShow={this.state.loginDiaShow} handleClose={this.hideModal} handleLogin={this.loginCheck}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Login</h5>
-            </div>
-            <div className="modal-body">
-              <form id="loginForm">
-                <div className="form-group">
-                  <label>Utente</label>
-                  <input type="text" className="form-control"
-                    ref={(input) => { this.userInput = input; }} onChange={e => temp = e.target.value} />
-                  <label>Password</label>
-                  <input type="password" autocomplete="on" className="form-control" onChange={e => temp2 = e.target.value} />
+      <body style={backStyle}>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div class="contenitore">
+          <section>
+            <LoginDialog loginDiaShow={this.state.loginDiaShow} handleClose={this.hideModal} handleLogin={this.loginCheck}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Login</h5>
                 </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Nome utente e password errati!</p>
-                            <p className="smallfont">Controllare le credenziali e riprovare.</p>
-                          </div>
-                        </section>
-                      </div>
+                <div className="modal-body">
+                  <form id="loginForm">
+                    <div className="form-group">
+                      <label>Utente</label>
+                      <input type="text" className="form-control"
+                        ref={(input) => { this.userInput = input; }} onChange={e => temp = e.target.value} />
+                      <label>Password</label>
+                      <input type="password" autocomplete="on" className="form-control" onChange={e => temp2 = e.target.value} />
                     </div>
-                  </div>
-                </Conferma>
-              </form>
-            </div>
-          </div>
-        </LoginDialog>
-        <LoginEditDialog loginEditDiaShow={this.state.loginEditDiaShow} handleClose={this.hideModal} handleEditLogin={this.loginEditCheck}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Edit Login</h5>
-            </div>
-            <div className="modal-body">
-              <form id="loginEditForm">
-                <div className="form-group">
-                  <label>Utente</label>
-                  <input type="text" className="form-control"
-                    ref={(input) => { this.userChangeInput = input; }} onChange={e => temp = e.target.value} />
-                  <label>Password</label>
-                  <input type="password" autocomplete="on" className="form-control" onChange={e => temp2 = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Nome utente e password modificati correttamente!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Nome utente e password errati!</p>
+                                <p className="smallfont">Controllare le credenziali e riprovare.</p>
+                              </div>
+                            </section>
                           </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Errore!</p>
-                            <p className="smallfont">Assicurarsi di aver compilato almeno un campo.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Errore>
-              </form>
-            </div>
-          </div>
-        </LoginEditDialog>
-        <TitleDialog titleDiaShow={this.state.titleDiaShow} handleClose={this.hideModal} handleSave={this.saveTitle}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica nome Istituto</h5>
-            </div>
-            <div className="modal-body">
-              <form id="titleForm">
-                <div className="form-group">
-                  <label>Nome Istituto</label>
-                  <input type="text" className="form-control" defaultValue={spData.headTitle} onChange={e => temp = e.target.value} /*placeholder={spData.headTitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.headColor)} onChange={e => tempColor = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifica applicata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Errore!</p>
-                            <p className="smallfont">Assicurarsi di aver inserito almeno un carattere.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Errore>
-              </form>
-            </div>
-          </div>
-        </TitleDialog>
-        <ClockDialog clockDiaShow={this.state.clockDiaShow} handleClose={this.hideModal} handleSave={this.saveClock}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica sfondo Orologio</h5>
-            </div>
-            <div className="modal-body">
-              <form id="clockForm">
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.clockColor)} onChange={e => tempColor = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifica applicata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Errore!</p>
-                            <p className="smallfont">Assicurarsi di aver inserito almeno un carattere.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Errore>
-              </form>
-            </div>
-          </div>
-        </ClockDialog>
-        <LogoDialog logoDiaShow={this.state.logoDiaShow} handleClose={this.hideModal} handleUpload={this.saveLogo}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica logo</h5>
-            </div>
-            <div className="modal-body">
-              <form id="logoForm">
-                <div className="form-group">
-                  <label>Scegli un file immagine per il logo (Max 1 MB)</label>
-                  <input type="file" className="form-control" name="image" onChange={e => fileImg = e.target.files[0]} />
-                </div>
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.logoColor)} onChange={e => tempColor = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifica applicata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Caricamento dati in corso...</p>
-                            <p className="smallfont">Attendere prego.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Upload>
-              </form>
-            </div>
-          </div>
-        </LogoDialog>
-        <InfoDialog infoDiaShow={this.state.infoDiaShow} handleClose={this.hideModal} handleSave={this.saveInfo}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica info Istituto</h5>
-            </div>
-            <div className="modal-body">
-              <form id="infoForm">
-                <div className="form-group">
-                  <label>Nome Istituto</label>
-                  <input type="text" className="form-control" defaultValue={spData.footTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footTitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Indirizzo Istituto</label>
-                  <input type="text" className="form-control" defaultValue={spData.footSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footSubtitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Telefono Istituto</label>
-                  <input type="text" className="form-control" defaultValue={spData.footSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footSubtitle2}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footInfoColor)} onChange={e => tempColor = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifica applicata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-              </form>
-            </div>
-          </div>
-        </InfoDialog>
-        <CreditDialog creditDiaShow={this.state.creditDiaShow} handleClose={this.hideModal} handleSave={this.saveCredit}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica crediti Istituto</h5>
-            </div>
-            <div className="modal-body">
-              <form id="creditForm">
-                <div className="form-group">
-                  <label>Etichetta Crediti</label>
-                  <input type="text" className="form-control" defaultValue={spData.footCreditiTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footCreditiTitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Crediti Pricipale</label>
-                  <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footCreditiSubtitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Crediti Secondario</label>
-                  <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footCreditiSubtitle2}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footCreditColor)} onChange={e => tempColor = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifica applicata!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salavare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-              </form>
-            </div>
-          </div>
-        </CreditDialog>
-        <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} handleClose={this.hideModal} handleSave={this.backEdit}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica Sfondo Pagina</h5>
-            </div>
-            <div className="modal-body">
-              <form id="backEditForm">
-                <div className="form-group">
-                  <label>Scegli un file immagine per lo sfondo (Max 1 MB)</label>
-                  <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
-                </div>
-                <div className="form-group">
-                  <label>Colore sfondo</label>
-                  <input type="color" className="form-control" onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifiche applicate!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Caricamento dati in corso...</p>
-                            <p className="smallfont">Attendere prego.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Upload>
-              </form>
-            </div>
-          </div>
-        </BackEditDialog>
-        <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Modifica Applicazione Web</h5>
-            </div>
-            <div className="modal-body">
-              <form id="appEditForm">
-                <div className="form-group">
-                  <label>Scegli un file immagine per l'icona (Max 1 MB)</label>
-                  <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
-                </div>
-                <div className="form-group">
-                  <label>Titolo Applicazione</label>
-                  <input type="text" className="form-control" defaultValue={tempAppTitle} onChange={e => temp2 = e.target.value} /*placeholder={tempAppTitle}*/ />
-                </div>
-                <div className="form-group">
-                  <label>Link Applicazione</label>
-                  <input type="text" className="form-control" defaultValue={tempAppLink} onChange={e => temp3 = e.target.value} /*placeholder={tempAppLink}*/ />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Modifiche applicate!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Caricamento dati in corso...</p>
-                            <p className="smallfont">Attendere prego.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Upload>
-              </form>
-            </div>
-          </div>
-        </AppEditDialog>
-        <AppAddDialog appAddDiaShow={this.state.appAddDiaShow} handleClose={this.hideModal} handleSave={this.applyAppAdd}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Aggiungi Applicazione Web</h5>
-            </div>
-            <div className="modal-body">
-              <form id="appAddForm">
-                <div className="form-group">
-                  <label>Scegli un file immagine per l'icona (Max 1 MB)</label>
-                  <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
-                </div>
-                <div className="form-group">
-                  <label>Posizione Applicazione (da 1 a {arrayLength}) o lasciare vuoto per ultima.</label>
-                  <input type="text" className="form-control" onChange={e => temp = e.target.value} />
-                </div>
-                <div className="form-group">
-                  <label>Titolo Applicazione</label>
-                  <input type="text" className="form-control" onChange={e => temp2 = e.target.value} />
-                </div>
-                <div className="form-group">
-                  <label>Link Applicazione</label>
-                  <input type="text" className="form-control" onChange={e => temp3 = e.target.value} />
-                </div>
-                <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">App aggiunta!</p>
-                            <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Conferma>
-                <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Caricamento dati in corso...</p>
-                            <p className="smallfont">Attendere prego.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Upload>
-                <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
-                  <div className="row text-center pt-2">
-                    <div className="col">
-                      <div className="row">
-                        <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
-                          <div>
-                            <p className="norfont">Errore!</p>
-                            <p className="smallfont">Assicurarsi di aver compilato tutti i campi.</p>
-                          </div>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                </Errore>
-              </form>
-            </div>
-          </div>
-        </AppAddDialog>
-        <AppDelDialog appDelDiaShow={this.state.appDelDiaShow} handleClose={this.hideModal} handleSave={this.applyAppDel}>
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" >Rimuovere l'applicazione in maniera definitiva?</h5>
-            </div>
-            <div className="modal-body">
-              <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
-                <div className="row text-center pt-2">
-                  <div className="col">
-                    <div className="row">
-                      <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
-                        <div>
-                          <p className="norfont">Applicazione Rimossa!</p>
-                          <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
                         </div>
-                      </section>
-                    </div>
-                  </div>
+                      </div>
+                    </Conferma>
+                  </form>
                 </div>
-              </Conferma>
+              </div>
+            </LoginDialog>
+            <LoginEditDialog loginEditDiaShow={this.state.loginEditDiaShow} handleClose={this.hideModal} handleEditLogin={this.loginEditCheck}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Edit Login</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="loginEditForm">
+                    <div className="form-group">
+                      <label>Utente</label>
+                      <input type="text" className="form-control"
+                        ref={(input) => { this.userChangeInput = input; }} onChange={e => temp = e.target.value} />
+                      <label>Password</label>
+                      <input type="password" autocomplete="on" className="form-control" onChange={e => temp2 = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Nome utente e password modificati correttamente!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per applicare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Errore!</p>
+                                <p className="smallfont">Assicurarsi di aver compilato almeno un campo.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Errore>
+                  </form>
+                </div>
+              </div>
+            </LoginEditDialog>
+            <TitleDialog titleDiaShow={this.state.titleDiaShow} handleClose={this.hideModal} handleSave={this.saveTitle}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica nome Istituto</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="titleForm">
+                    <div className="form-group">
+                      <label>Nome Istituto</label>
+                      <input type="text" className="form-control" defaultValue={spData.headTitle} onChange={e => temp = e.target.value} /*placeholder={spData.headTitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.headColor)} onChange={e => tempColor = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifica applicata!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Errore!</p>
+                                <p className="smallfont">Assicurarsi di aver inserito almeno un carattere.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Errore>
+                  </form>
+                </div>
+              </div>
+            </TitleDialog>
+            <ClockDialog clockDiaShow={this.state.clockDiaShow} handleClose={this.hideModal} handleSave={this.saveClock}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica sfondo Orologio</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="clockForm">
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.clockColor)} onChange={e => tempColor = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifica applicata!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Errore!</p>
+                                <p className="smallfont">Assicurarsi di aver inserito almeno un carattere.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Errore>
+                  </form>
+                </div>
+              </div>
+            </ClockDialog>
+            <LogoDialog logoDiaShow={this.state.logoDiaShow} activityChanged={this.state.activityChanged} handleClose={this.hideModal} handleUpload={this.saveLogo}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica logo</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="logoForm">
+                    <div className="form-group">
+                      <label>Scegli un file immagine per il logo (Max 1 MB)</label>
+                      <input type="file" className="form-control" name="image" onChange={e => fileImg = e.target.files[0]} />
+                    </div>
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.logoColor)} onChange={e => tempColor = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifica applicata!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Caricamento dati in corso...</p>
+                                <p className="smallfont">Attendere prego.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Upload>
+                  </form>
+                </div>
+              </div>
+            </LogoDialog>
+            <InfoDialog infoDiaShow={this.state.infoDiaShow} handleClose={this.hideModal} handleSave={this.saveInfo}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica info Istituto</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="infoForm">
+                    <div className="form-group">
+                      <label>Nome Istituto</label>
+                      <input type="text" className="form-control" defaultValue={spData.footTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footTitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Indirizzo Istituto</label>
+                      <input type="text" className="form-control" defaultValue={spData.footSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footSubtitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Telefono Istituto</label>
+                      <input type="text" className="form-control" defaultValue={spData.footSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footSubtitle2}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footInfoColor)} onChange={e => tempColor = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifica applicata!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                  </form>
+                </div>
+              </div>
+            </InfoDialog>
+            <CreditDialog creditDiaShow={this.state.creditDiaShow} handleClose={this.hideModal} handleSave={this.saveCredit}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica crediti Istituto</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="creditForm">
+                    <div className="form-group">
+                      <label>Etichetta Crediti</label>
+                      <input type="text" className="form-control" defaultValue={spData.footCreditiTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footCreditiTitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Crediti Pricipale</label>
+                      <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footCreditiSubtitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Crediti Secondario</label>
+                      <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footCreditiSubtitle2}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.footCreditColor)} onChange={e => tempColor = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifica applicata!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salavare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                  </form>
+                </div>
+              </div>
+            </CreditDialog>
+            <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} handleClose={this.hideModal} handleSave={this.saveBack}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica Sfondo Pagina</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="backEditForm">
+                    <div className="form-group">
+                      <label>Scegli un file immagine per lo sfondo (Max 1 MB)</label>
+                      <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                    </div>
+                    <div className="form-group">
+                      <label>Colore sfondo</label>
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.backgroundColor)} onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifiche applicate!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Caricamento dati in corso...</p>
+                                <p className="smallfont">Attendere prego.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Upload>
+                  </form>
+                </div>
+              </div>
+            </BackEditDialog>
+            <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Modifica Applicazione Web</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="appEditForm">
+                    <div className="form-group">
+                      <label>Scegli un file immagine per l'icona (Max 1 MB)</label>
+                      <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                    </div>
+                    <div className="form-group">
+                      <label>Titolo Applicazione</label>
+                      <input type="text" className="form-control" defaultValue={tempAppTitle} onChange={e => temp2 = e.target.value} /*placeholder={tempAppTitle}*/ />
+                    </div>
+                    <div className="form-group">
+                      <label>Link Applicazione</label>
+                      <input type="text" className="form-control" defaultValue={tempAppLink} onChange={e => temp3 = e.target.value} /*placeholder={tempAppLink}*/ />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Modifiche applicate!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Caricamento dati in corso...</p>
+                                <p className="smallfont">Attendere prego.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Upload>
+                  </form>
+                </div>
+              </div>
+            </AppEditDialog>
+            <AppAddDialog appAddDiaShow={this.state.appAddDiaShow} handleClose={this.hideModal} handleSave={this.applyAppAdd}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Aggiungi Applicazione Web</h5>
+                </div>
+                <div className="modal-body">
+                  <form id="appAddForm">
+                    <div className="form-group">
+                      <label>Scegli un file immagine per l'icona (Max 1 MB)</label>
+                      <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                    </div>
+                    <div className="form-group">
+                      <label>Posizione Applicazione (da 1 a {arrayLength}) o lasciare vuoto per ultima.</label>
+                      <input type="text" className="form-control" onChange={e => temp = e.target.value} />
+                    </div>
+                    <div className="form-group">
+                      <label>Titolo Applicazione</label>
+                      <input type="text" className="form-control" onChange={e => temp2 = e.target.value} />
+                    </div>
+                    <div className="form-group">
+                      <label>Link Applicazione</label>
+                      <input type="text" className="form-control" onChange={e => temp3 = e.target.value} />
+                    </div>
+                    <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">App aggiunta!</p>
+                                <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Conferma>
+                    <Upload upShow={this.state.upShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore solidblue latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Caricamento dati in corso...</p>
+                                <p className="smallfont">Attendere prego.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Upload>
+                    <Errore alErrShow={this.state.alErrShow} handleClose={this.hideAlert}>
+                      <div className="row text-center pt-2">
+                        <div className="col">
+                          <div className="row">
+                            <section className="col pt-2 contenitore brick latowhite d-flex justify-content-center align-items-center ">
+                              <div>
+                                <p className="norfont">Errore!</p>
+                                <p className="smallfont">Assicurarsi di aver compilato tutti i campi.</p>
+                              </div>
+                            </section>
+                          </div>
+                        </div>
+                      </div>
+                    </Errore>
+                  </form>
+                </div>
+              </div>
+            </AppAddDialog>
+            <AppDelDialog appDelDiaShow={this.state.appDelDiaShow} handleClose={this.hideModal} handleSave={this.applyAppDel}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" >Rimuovere l'applicazione in maniera definitiva?</h5>
+                </div>
+                <div className="modal-body">
+                  <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
+                    <div className="row text-center pt-2">
+                      <div className="col">
+                        <div className="row">
+                          <section className="col pt-2 contenitore solidgreen latowhite d-flex justify-content-center align-items-center ">
+                            <div>
+                              <p className="norfont">Applicazione Rimossa!</p>
+                              <p className="smallfont">Premi "Chiudi" e utilizza l'ingranaggio per salvare.</p>
+                            </div>
+                          </section>
+                        </div>
+                      </div>
+                    </div>
+                  </Conferma>
+                </div>
+              </div>
+            </AppDelDialog>
+            <div className="stickytop">
+              {head}
+              {buttons}
             </div>
-          </div>
-        </AppDelDialog>
-        <div className="stickytop">
-          {head}
-          {buttons}
+            {/* APPS */}
+            <div className="textcenter">
+              {
+                this.state.appItems.map(({ id, title, link, icon }, i) => {
+                  return (
+                    <App showAppsBtn={this.state.appsBtnShow} key={i} pos={i}
+                      title={title} link={link} icon={icon}
+                      appEditDel={this.appEditDel} appAddItem={this.appAddItem} />
+                  )
+                })
+              }
+              {/* FOOTER */}
+              {foot}
+            </div>
+          </section>
         </div>
-        {/* APPS */}
-        <div className="textcenter">
-          {
-            this.state.appItems.map(({ id, title, link, icon }, i) => {
-              return (
-                <App showAppsBtn={this.state.appsBtnShow} key={i} pos={i}
-                  title={title} link={link} icon={icon}
-                  appEditDel={this.appEditDel} appAddItem={this.appAddItem} />
-              )
-            })
-          }
-          {/* FOOTER */}
-          {foot}
-        </div>
-      </section>
+        {/* Bootstrap JS */}
+        <script src="./bootstrap/js/bootstrap.bundle.min.js"
+          integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+      </body>
+
     );
   }
 }
