@@ -23,6 +23,7 @@
     "GearIcon": "./img/gear.svg",
     "LogoIcon": "./img/logo.svg",
     "backgroundImage": "./img/background.jpg",
+    "noBackImage": false,
     "appItems": [],
     "appAdd": {
         "title": "Add Item",

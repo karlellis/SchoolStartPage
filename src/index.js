@@ -43,23 +43,18 @@ var footCreditiSubtitle = spData.footCreditiSubtitle;
 var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
 var footCreditColor = spData.footCreditColor;
 var clockColor = spData.clockColor;
-var backgroundColor = spData.backgroundColor;
-var backgroundImg = spData.backgroundImage;
+// var noBackImage = false;
+// var backgroundColor = spData.backgroundColor;
+// var backgroundImg = spData.backgroundImage;
+
 // var backStyle = {
-//   background: "url(" + backgroundImg + ")",
+//   backgroundImage: "url(" + spData.backgroundImage + ")",
 //   backgroundPosition: 'center',
 //   backgroundSize: 'cover',
 //   backgroundRepeat: 'no-repeat',
-//   width: '100vw',
-//   height: '100vh'
+//   backgroundAttachment: "fixed"
 // };
-var backStyle = {
-  backgroundImage: "url(" + spData.backgroundImage + ")",
-  backgroundPosition: 'center',
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  backgroundAttachment: "fixed"
-};
+
 // var backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--background-color');
 // var backgroundImg = getComputedStyle(document.documentElement).getPropertyValue('--background-image');
 // console.log("First BackgroundImage=", backgroundImg);
@@ -143,7 +138,7 @@ const InfoDialog = ({ handleSave, handleClose, infoDiaShow, children }) => {
   );
 };
 
-const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children, activityChanged }) => {
+const BackEditDialog = ({ handleSave, handleClose, backEditDiaShow, children, activityChanged, disField }) => {
   const showHideClassName = backEditDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
@@ -321,10 +316,6 @@ async function comparePassword(plaintextPassword, hash) {
   return result;
 }
 
-// function setColor(newColor) {
-//   document.documentElement.style.setProperty('--logo-color', newColor);
-// }
-
 class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -346,7 +337,16 @@ class Main extends React.Component {
       alShow: false,
       alErrShow: false,
       upShow: false,
-      activityChanged: false
+      activityChanged: false,
+      disField: false,
+      backStyle: {
+        backgroundImage: "url(" + spData.backgroundImage + ")",
+        backgroundColor: spData.backgroundColor,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: "fixed"
+      }
     }
     this.appEditDel = this.appEditDel.bind(this)
     this.appAddItem = this.appAddItem.bind(this)
@@ -372,9 +372,34 @@ class Main extends React.Component {
           footShow: spData.footShow,
           mainBtn: spData.mainBtn,
           appsBtnShow: spData.appsBtnShow,
-          appItems: spData.appItems
-        })
-        headTitle = spData.headTitle
+          appItems: spData.appItems,
+          disField: spData.noBackImage
+        });
+        console.log("NobackImage:", spData.noBackImage);
+        if (spData.noBackImage === true) {
+          this.setState({
+            backStyle: {
+              backgroundImage: "none",
+              backgroundColor: spData.backgroundColor,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: "fixed"
+            }
+          });
+        } else {
+          this.setState({
+            backStyle: {
+              backgroundImage: "url(" + spData.backgroundImage + ")",
+              backgroundColor: spData.backgroundColor,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: "fixed"
+            }
+          });
+        }
+        headTitle = spData.headTitle;
         headSubtitle = spData.headSubtitle;
         headSubtitleLink = spData.headSubtitleLink;
         footTitle = spData.footTitle;
@@ -388,8 +413,9 @@ class Main extends React.Component {
         footInfoColor = spData.footInfoColor;
         footCreditColor = spData.footCreditColor;
         clockColor = spData.clockColor;
-        backgroundImg = spData.backgroundImage;
-        backgroundColor = spData.backgroundColor;
+        // noBackImage = spData.noBackImage;
+        // backgroundImg = spData.backgroundImage;
+        // backgroundColor = spData.backgroundColor;
         // var backgroundColor = spData.backgroundColor;
         // var backgroundImg = spData.backgroundImage;
 
@@ -405,24 +431,24 @@ class Main extends React.Component {
         //   backgroundImage: "url(" + spData.backgroundImage + ") no-repeat center center fixed",
         //   backgroundSize: "cover"
         // };
-        
+
         // backStyle = {
         //   background: "url(\"" + spData.backgroundImage + "\") no-repeat center center fixed",
         //   backgroundSize: 'cover',
         // };
 
-        backStyle = {
-          backgroundImage: "url(" + spData.backgroundImage + ")",
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: "fixed"
-        };
+        // backStyle = {
+        //   backgroundImage: "url(" + spData.backgroundImage + ")",
+        //   backgroundPosition: 'center',
+        //   backgroundSize: 'cover',
+        //   backgroundRepeat: 'no-repeat',
+        //   backgroundAttachment: "fixed"
+        // };
 
-        document.documentElement.style.setProperty('--background-color', backgroundColor);
+        // document.documentElement.style.setProperty('--background-color', backgroundColor);
         // document.documentElement.style.setProperty('--background-image', backgroundImg);
-        console.log("Background Color: ", backgroundColor);
-        console.log("Background Image: ", backgroundImg);
+        // console.log("Background Color: ", backgroundColor);
+        // console.log("Background Image: ", backgroundImg);
         // user = spData.user;
         // password = spData.password;
         // console.log("Check password: ", comparePassword("admin", password));
@@ -651,11 +677,22 @@ class Main extends React.Component {
           // spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
           // logoColor = spData.logoColor;
           // tempColor = "";
+          spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
+          this.setState({
+            backStyle: {
+              backgroundImage: "url(" + spData.backgroundImage + ")",
+              backgroundColor: spData.backgroundColor,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat',
+              backgroundAttachment: "fixed"
+            }
+          });
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
           console.log("File correctly Uploaded!");
-          backgroundImg = spData.backgroundImage;
+          // backgroundImg = spData.backgroundImage;
           // document.documentElement.style.setProperty('--background-image', "url(" + spData.backgroundImage + ")");
           this.setState({
             activityChanged: false
@@ -811,17 +848,42 @@ class Main extends React.Component {
     }
   }
   saveBack = () => {
+    console.log("NoImage:", spData.noBackImage);
+    console.log("disField:", this.state.disField);
     if (fileImg !== null) {
       // var nome = fileImg.name;
       tempIcon = spData.backgroundImage;
       this.saveImgFile(fileImg, "back", "edit");
-      spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
-      backgroundColor = spData.backgroundColor;
-      document.documentElement.style.setProperty('--background-color', tempColor);
+      // spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
+      // backgroundColor = spData.backgroundColor;
+      // document.documentElement.style.setProperty('--background-color', tempColor);
       // tempColor = "";
     } else {
       spData.backgroundColor = this.hexToRgb(tempColor) + ", 0.7)";
-      backgroundColor = spData.backgroundColor;
+      if (spData.noBackImage === true) {
+        this.setState({
+          backStyle: {
+            backgroundImage: "none",
+            backgroundColor: spData.backgroundColor,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: "fixed"
+          }
+        });
+      } else {
+        this.setState({
+          backStyle: {
+            backgroundImage: "url(" + spData.backgroundImage + ")",
+            backgroundColor: spData.backgroundColor,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: "fixed"
+          }
+        });
+      }
+      // backgroundColor = spData.backgroundColor;
       // tempColor = "";
       this.setState({ upShow: false });
       this.setState({ alShow: true });
@@ -1138,6 +1200,7 @@ class Main extends React.Component {
     const { headShow: headShow } = this.state;
     const { footShow: footShow } = this.state;
     const { mainBtn: mainBtn } = this.state;
+    const { disField: disField } = this.state;
     let head = "";
     let buttons = "";
     let foot = "";
@@ -1532,7 +1595,7 @@ class Main extends React.Component {
 
     return (
       // TITOLO, OROLOGIO E BUTTONS
-      <body style={backStyle}>
+      <body style={this.state.backStyle}>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div class="contenitore">
           <section>
@@ -1841,12 +1904,42 @@ class Main extends React.Component {
                 <div className="modal-body">
                   <form id="backEditForm">
                     <div className="form-group">
+                      <label>No Immagine</label>
+                      <div>
+                        <label class="switch">
+                          <input type="checkbox" className="form-control" defaultChecked={spData.noBackImage} onClick={e => {
+                            if (this.state.disField === false) {
+                              this.setState({
+                                disField: true
+                              });
+                              spData.noBackImage = true;
+                            } else {
+                              this.setState({
+                                disField: false
+                              });
+                              spData.noBackImage = false;
+                            }
+                            // temp = e.target.value;
+                          }} />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      {/* <input type="checkbox" className="form-control check" onChange={e => {
+                        temp = e.target.value;
+                        this.setState({
+                          disField: true
+                        });
+                      }} /> */}
                       <label>Scegli un file immagine per lo sfondo (Max 1 MB)</label>
-                      <input type="file" className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                      <input type="file" disabled={disField} className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
                     </div>
+                    {/* <div className="form-group">
+                      <label>Nessuna immagine.</label>
+                      <input type="checkbox" className="form-control" name="icon" onChange={e => temp = e.target.value} />
+                    </div> */}
                     <div className="form-group">
                       <label>Colore sfondo</label>
-                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.backgroundColor)} onChange={e => tempColor = e.target.value} placeholder={spData.headTitle} />
+                      <input type="color" className="form-control" defaultValue={this.rgbToHex(spData.backgroundColor)} onChange={e => tempColor = e.target.value} />
                     </div>
                     <Conferma alShow={this.state.alShow} handleClose={this.hideAlert}>
                       <div className="row text-center pt-2">
