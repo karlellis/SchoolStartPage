@@ -29,20 +29,20 @@ var nome = "";
 
 // initData not really necessary...
 var spData = require("./initData.json");
-var headTitle = spData.headTitle;
-var headSubtitle = spData.headSubtitle;
-var headSubtitleLink = spData.headSubtitleLink;
-var headColor = spData.headColor;
-var logoColor = spData.logoColor;
-var footTitle = spData.footTitle;
-var footSubtitle = spData.footSubtitle;
-var footSubtitle2 = spData.footSubtitle2;
-var footInfoColor = spData.footInfoColor;
-var footCreditiTitle = spData.footCreditiTitle;
-var footCreditiSubtitle = spData.footCreditiSubtitle;
-var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
-var footCreditColor = spData.footCreditColor;
-var clockColor = spData.clockColor;
+// var headTitle = spData.headTitle;
+// var headSubtitle = spData.headSubtitle;
+// var headSubtitleLink = spData.headSubtitleLink;
+// var headColor = spData.headColor;
+// var logoColor = spData.logoColor;
+// var footTitle = spData.footTitle;
+// var footSubtitle = spData.footSubtitle;
+// var footSubtitle2 = spData.footSubtitle2;
+// var footInfoColor = spData.footInfoColor;
+// var footCreditiTitle = spData.footCreditiTitle;
+// var footCreditiSubtitle = spData.footCreditiSubtitle;
+// var footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+// var footCreditColor = spData.footCreditColor;
+// var clockColor = spData.clockColor;
 // var noBackImage = false;
 // var backgroundColor = spData.backgroundColor;
 // var backgroundImg = spData.backgroundImage;
@@ -399,20 +399,20 @@ class Main extends React.Component {
             }
           });
         }
-        headTitle = spData.headTitle;
-        headSubtitle = spData.headSubtitle;
-        headSubtitleLink = spData.headSubtitleLink;
-        footTitle = spData.footTitle;
-        footSubtitle = spData.footSubtitle;
-        footSubtitle2 = spData.footSubtitle2;
-        footCreditiTitle = spData.footCreditiTitle;
-        footCreditiSubtitle = spData.footCreditiSubtitle;
-        footCreditiSubtitle2 = spData.footCreditiSubtitle2;
-        headColor = spData.headColor;
-        logoColor = spData.logoColor;
-        footInfoColor = spData.footInfoColor;
-        footCreditColor = spData.footCreditColor;
-        clockColor = spData.clockColor;
+        // headTitle = spData.headTitle;
+        // headSubtitle = spData.headSubtitle;
+        // headSubtitleLink = spData.headSubtitleLink;
+        // footTitle = spData.footTitle;
+        // footSubtitle = spData.footSubtitle;
+        // footSubtitle2 = spData.footSubtitle2;
+        // footCreditiTitle = spData.footCreditiTitle;
+        // footCreditiSubtitle = spData.footCreditiSubtitle;
+        // footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+        // headColor = spData.headColor;
+        // logoColor = spData.logoColor;
+        // footInfoColor = spData.footInfoColor;
+        // footCreditColor = spData.footCreditColor;
+        // clockColor = spData.clockColor;
         // noBackImage = spData.noBackImage;
         // backgroundImg = spData.backgroundImage;
         // backgroundColor = spData.backgroundColor;
@@ -729,10 +729,10 @@ class Main extends React.Component {
   saveTitle = () => {
     if (temp !== "") {
       spData.headTitle = temp;
-      headTitle = spData.headTitle;
+      // headTitle = spData.headTitle;
       spData.headColor = this.hexToRgb(tempColor) + ", 0.95)";
-      headColor = spData.headColor;
-      console.log(headColor);
+      // headColor = spData.headColor;
+      console.log(spData.headColor);
       // tempColor = "";
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
@@ -746,7 +746,7 @@ class Main extends React.Component {
   saveClock = () => {
     // console.log(tempColor);
     spData.clockColor = this.hexToRgb(tempColor) + ", 0.7)";
-    clockColor = spData.clockColor;
+    // clockColor = spData.clockColor;
     // tempColor = "";
     this.setState({ alShow: true });
     this.setState({ alErrShow: false });
@@ -755,18 +755,18 @@ class Main extends React.Component {
   saveInfo = () => {
     if (temp !== "") {
       spData.footTitle = temp;
-      footTitle = spData.footTitle;
+      // footTitle = spData.footTitle;
     }
     if (temp2 !== "") {
       spData.footSubtitle = temp2;
-      footSubtitle = spData.footSubtitle;
+      // footSubtitle = spData.footSubtitle;
     }
     if (temp3 !== "") {
       spData.footSubtitle2 = temp3;
-      footSubtitle2 = spData.footSubtitle2;
+      // footSubtitle2 = spData.footSubtitle2;
     }
     spData.footInfoColor = this.hexToRgb(tempColor) + ", 0.7)";
-    footInfoColor = spData.footInfoColor;
+    // footInfoColor = spData.footInfoColor;
     // tempColor = "";
     temp = "";
     temp2 = "";
@@ -777,18 +777,18 @@ class Main extends React.Component {
   saveCredit = () => {
     if (temp !== "") {
       spData.footCreditiTitle = temp;
-      footCreditiTitle = spData.footCreditiTitle;
+      // footCreditiTitle = spData.footCreditiTitle;
     }
     if (temp2 !== "") {
       spData.footCreditiSubtitle = temp2;
-      footCreditiSubtitle = spData.footCreditiSubtitle;
+      // footCreditiSubtitle = spData.footCreditiSubtitle;
     }
     if (temp3 !== "") {
       spData.footCreditiSubtitle2 = temp3;
-      footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+      // footCreditiSubtitle2 = spData.footCreditiSubtitle2;
     }
     spData.footCreditColor = this.hexToRgb(tempColor) + ", 0.7)";
-    footCreditColor = spData.footCreditColor;
+    // footCreditColor = spData.footCreditColor;
     // tempColor = "";
     temp = "";
     temp2 = "";
@@ -897,11 +897,11 @@ class Main extends React.Component {
       tempIcon = spData.LogoIcon;
       this.saveImgFile(fileImg, "logo", "edit");
       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
-      logoColor = spData.logoColor;
+      // logoColor = spData.logoColor;
       // tempColor = "";
     } else {
       spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
-      logoColor = spData.logoColor;
+      // logoColor = spData.logoColor;
       // tempColor = "";
       this.setState({ upShow: false });
       this.setState({ alShow: true });
@@ -1211,19 +1211,19 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex justify-content-center 
+              <section id="HeadTitle" style={{ backgroundColor: spData.headColor }} className="col latowhite d-flex justify-content-center 
               align-items-center ">
                 <div>
-                  <p className="medfont">{headTitle}</p>
-                  <p className="smallfont" title={headSubtitle}>
-                    <a href={headSubtitleLink}>
-                      {headSubtitle}
+                  <p className="medfont">{spData.headTitle}</p>
+                  <p className="smallfont" title={spData.headSubtitle}>
+                    <a href={spData.headSubtitleLink}>
+                      {spData.headSubtitle}
                     </a>
                   </p>
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: spData.logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
                 <LogoImg />
               </div>
               {/* OROLOGIO */}
@@ -1241,12 +1241,12 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center">
+              <section id="HeadTitle" style={{ backgroundColor: spData.headColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center">
                 <div>
-                  <p className="medfont">{headTitle}</p>
-                  <p className="smallfont" title={headSubtitle}>
-                    <a href={headSubtitleLink}>
-                      {headSubtitle}
+                  <p className="medfont">{spData.headTitle}</p>
+                  <p className="smallfont" title={spData.headSubtitle}>
+                    <a href={spData.headSubtitleLink}>
+                      {spData.headSubtitle}
                     </a>
                   </p>
                 </div>
@@ -1258,7 +1258,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex flex-column justify-content-end align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: spData.logoColor }} className="col-md logo d-flex flex-column justify-content-end align-items-center">
                 <LogoImg />
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col latowhite flexbutton solidgreen m-1" onClick={() => this.headLogoEdit("LogoEdit")}>
@@ -1289,7 +1289,7 @@ class Main extends React.Component {
               {/* TITOLO */}
               {/* LOGO */}
               {/* OROLOGIO */}
-              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
+              <div id="HeadDate" style={{ backgroundColor: spData.clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
                 <Orologio></Orologio>
               </div>
               {/* SETTINGS */}
@@ -1312,22 +1312,22 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col latowhite d-flex justify-content-center align-items-center ">
+              <section id="HeadTitle" style={{ backgroundColor: spData.headColor }} className="col latowhite d-flex justify-content-center align-items-center ">
                 <div>
-                  <p className="medfont">{headTitle}</p>
-                  <p className="smallfont" title={headSubtitle}>
-                    <a href={headSubtitleLink}>
-                      {headSubtitle}
+                  <p className="medfont">{spData.headTitle}</p>
+                  <p className="smallfont" title={spData.headSubtitle}>
+                    <a href={spData.headSubtitleLink}>
+                      {spData.headSubtitle}
                     </a>
                   </p>
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: spData.logoColor }} className="col-md logo d-flex justify-content-center align-items-center">
                 <LogoImg />
               </div>
               {/* OROLOGIO */}
-              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
+              <div id="HeadDate" style={{ backgroundColor: spData.clockColor }} className="col-md latowhite d-flex justify-content-center align-items-center">
                 <Orologio></Orologio>
               </div>
               {/* SETTINGS */}
@@ -1344,12 +1344,12 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* TITOLO */}
-              <section id="HeadTitle" style={{ backgroundColor: headColor }} className="col solidblue latowhite d-flex flex-column justify-content-end align-items-center">
+              <section id="HeadTitle" style={{ backgroundColor: spData.headColor }} className="col solidblue latowhite d-flex flex-column justify-content-end align-items-center">
                 <div>
-                  <p className="medfont">{headTitle}</p>
-                  <p className="smallfont" title={headSubtitle}>
-                    <a href={headSubtitleLink}>
-                      {headSubtitle}
+                  <p className="medfont">{spData.headTitle}</p>
+                  <p className="smallfont" title={spData.headSubtitle}>
+                    <a href={spData.headSubtitleLink}>
+                      {spData.headSubtitle}
                     </a>
                   </p>
                 </div>
@@ -1360,7 +1360,7 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* LOGO */}
-              <div id="HeadLogo" style={{ backgroundColor: logoColor }} className="col-md logo blue d-flex flex-column justify-content-end align-items-center">
+              <div id="HeadLogo" style={{ backgroundColor: spData.logoColor }} className="col-md logo blue d-flex flex-column justify-content-end align-items-center">
                 <LogoImg />
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col latowhite flexbutton solidgreen m-1" onClick={() => this.headLogoEdit("LogoEdit")}>
@@ -1369,7 +1369,7 @@ class Main extends React.Component {
                 </div>
               </div>
               {/* OROLOGIO */}
-              <div id="HeadDate" style={{ backgroundColor: clockColor }} className="col-md latowhite brick d-flex flex-column justify-content-end align-items-center">
+              <div id="HeadDate" style={{ backgroundColor: spData.clockColor }} className="col-md latowhite brick d-flex flex-column justify-content-end align-items-center">
                 {/* <div id="HeadDate" className="col-md brick latowhite d-flex justify-content-center align-items-center"> */}
                 <Orologio></Orologio>
                 <div className="stretch d-flex justify-content-center align-items-center">
@@ -1422,7 +1422,7 @@ class Main extends React.Component {
               onClick={() => this.appsButtonShow("ShowAppBtn")}>
               App Settings
             </button>
-            <button className="col button indaco m-1"
+            <button className="col button solidbrick m-1"
               onClick={() => this.backEdit()}>
               Background
             </button>
@@ -1440,13 +1440,13 @@ class Main extends React.Component {
             <div className="row">
               {/* INFO */}
               {/* CREDITI */}
-              <section style={{ backgroundColor: footCreditColor }} className="col pt-1 crediti latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footCreditColor }} className="col pt-1 crediti latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
-                  <a className="smallfont">{footCreditiTitle}</a>
+                  <a className="smallfont">{spData.footCreditiTitle}</a>
                   <br />
-                  <a className="smallfont"><i>{footCreditiSubtitle}</i></a>
+                  <a className="smallfont"><i>{spData.footCreditiSubtitle}</i></a>
                   <br />
-                  <a className="verysmallfont">{footCreditiSubtitle2}</a>
+                  <a className="verysmallfont">{spData.footCreditiSubtitle2}</a>
                 </div>
               </section>
             </div>
@@ -1460,13 +1460,13 @@ class Main extends React.Component {
             <div className="row">
               {/* INFO */}
               {/* CREDITI */}
-              <section style={{ backgroundColor: footCreditColor }} className="col crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footCreditColor }} className="col crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
-                  <a className="smallfont">{footCreditiTitle}</a>
+                  <a className="smallfont">{spData.footCreditiTitle}</a>
                   <br />
-                  <a className="smallfont"><i>{footCreditiSubtitle}</i></a>
+                  <a className="smallfont"><i>{spData.footCreditiSubtitle}</i></a>
                   <br />
-                  <a className="verysmallfont">{footCreditiSubtitle2}</a>
+                  <a className="verysmallfont">{spData.footCreditiSubtitle2}</a>
                 </div>
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col flexbutton brick m-1" onClick={() => this.footCreditsEdit("CreditsEdit")}>
@@ -1484,13 +1484,13 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section style={{ backgroundColor: footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
-                  <a className="medfont">{footTitle}</a>
+                  <a className="medfont">{spData.footTitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle}</a>
+                  <a className="smallfont">{spData.footSubtitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle2}</a>
+                  <a className="smallfont">{spData.footSubtitle2}</a>
                 </div>
               </section>
               {/* CREDITI */}
@@ -1504,13 +1504,13 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section style={{ backgroundColor: footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
-                  <a className="medfont">{footTitle}</a>
+                  <a className="medfont">{spData.footTitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle}</a>
+                  <a className="smallfont">{spData.footSubtitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle2}</a>
+                  <a className="smallfont">{spData.footSubtitle2}</a>
                 </div>
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col flexbutton solidgreen m-1" onClick={() => this.footInfoEdit("InfoEdit")}>
@@ -1529,13 +1529,13 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section style={{ backgroundColor: footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footInfoColor }} className="col latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
-                  <a className="medfont">{footTitle}</a>
+                  <a className="medfont">{spData.footTitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle}</a>
+                  <a className="smallfont">{spData.footSubtitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle2}</a>
+                  <a className="smallfont">{spData.footSubtitle2}</a>
                 </div>
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col flexbutton solidgreen m-1" onClick={() => this.footInfoEdit("InfoEdit")}>
@@ -1544,13 +1544,13 @@ class Main extends React.Component {
                 </div>
               </section>
               {/* CREDITI */}
-              <section style={{ backgroundColor: footCreditColor }} className="col-md crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footCreditColor }} className="col-md crediti latowhite d-flex flex-column justify-content-end align-items-center text-center ">
                 <div>
-                  <a className="smallfont">{footCreditiTitle}</a>
+                  <a className="smallfont">{spData.footCreditiTitle}</a>
                   <br />
-                  <a className="smallfont"><i>{footCreditiSubtitle}</i></a>
+                  <a className="smallfont"><i>{spData.footCreditiSubtitle}</i></a>
                   <br />
-                  <a className="verysmallfont">{footCreditiSubtitle2}</a>
+                  <a className="verysmallfont">{spData.footCreditiSubtitle2}</a>
                 </div>
                 <div className="stretch d-flex justify-content-center align-items-center">
                   <button className="col flexbutton brick m-1" onClick={() => this.footCreditsEdit("CreditsEdit")}>
@@ -1568,23 +1568,23 @@ class Main extends React.Component {
           <div className="col">
             <div className="row">
               {/* INFO */}
-              <section style={{ backgroundColor: footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footInfoColor }} className="col pb-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
-                  <a className="medfont">{footTitle}</a>
+                  <a className="medfont">{spData.footTitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle}</a>
+                  <a className="smallfont">{spData.footSubtitle}</a>
                   <br />
-                  <a className="smallfont">{footSubtitle2}</a>
+                  <a className="smallfont">{spData.footSubtitle2}</a>
                 </div>
               </section>
               {/* CREDITI */}
-              <section style={{ backgroundColor: footCreditColor }} className="col-md-3 pt-1 latowhite d-flex justify-content-center align-items-center text-center ">
+              <section style={{ backgroundColor: spData.footCreditColor }} className="col-md-3 pt-1 latowhite d-flex justify-content-center align-items-center text-center ">
                 <div>
-                  <a className="smallfont">{footCreditiTitle}</a>
+                  <a className="smallfont">{spData.footCreditiTitle}</a>
                   <br />
-                  <a className="smallfont"><i>{footCreditiSubtitle}</i></a>
+                  <a className="smallfont"><i>{spData.footCreditiSubtitle}</i></a>
                   <br />
-                  <a className="verysmallfont">{footCreditiSubtitle2}</a>
+                  <a className="verysmallfont">{spData.footCreditiSubtitle2}</a>
                 </div>
               </section>
             </div>
