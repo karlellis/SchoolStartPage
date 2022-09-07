@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { ReactComponent as GearIcon } from "./srcimg/gear.svg";
+// import { ReactComponent as GearIcon } from "./srcimg/gear.svg";
 const bcrypt = require("bcryptjs")
 
 var fileImg = null;
@@ -271,7 +271,7 @@ async function fetchUpPHP(file, url, key) {
   }).then((response) => response.json())
     .then((json) => {
       nome = json.filename;
-      console.log("Image Upload:", nome);
+      // console.log("Image Upload:", nome);
       // flag = json.status;
     });
 }
@@ -287,7 +287,7 @@ async function fetchUpConfig(file, url, key) {
     body: data
   }).then((response) => response.json())
     .then((json) => {
-      console.log(json.status);
+      // console.log(json.status);
     });
 }
 
@@ -302,7 +302,7 @@ async function fetchDelPHP(appIcon, url, key) {
     body: data
   }).then((response) => response.json())
     .then((json) => {
-      console.log(json.status);
+      // console.log(json.status);
     });
 }
 
@@ -375,7 +375,7 @@ class Main extends React.Component {
           appItems: spData.appItems,
           disField: spData.noBackImage
         });
-        console.log("NobackImage:", spData.noBackImage);
+        // console.log("NobackImage:", spData.noBackImage);
         if (spData.noBackImage === true) {
           this.setState({
             backStyle: {
@@ -563,7 +563,7 @@ class Main extends React.Component {
       // tempIcon = spData.LogoIcon;
       fetchDelPHP(tempIcon, "./api/img-upload.php", url)
         .then(res => {
-          console.log("Seems deleted!");
+          // console.log("Seems deleted!");
           // console.log("Delete result=", res);
         });
 
@@ -583,7 +583,7 @@ class Main extends React.Component {
         //   console.log("Wait...")
         //   window.setTimeout(() => { this.checkImageUpload(url, op); }, 300);
         // } else {
-        console.log("Continue...")
+        // console.log("Continue...")
         // sleep(1000).then(r => {
         // flag = "";
         // var nome = fileImg.name;
@@ -595,13 +595,14 @@ class Main extends React.Component {
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
-          console.log("File correctly Uploaded!");
+          // console.log("File correctly Uploaded!");
           this.setState({
             activityChanged: false
           });
+          this.saveFile(spData, "./api/img-upload.php", "config");
         } else if (url === "icon" && op === "edit") {
           if (fileImg !== null) {
-            console.log("Icon edit!");
+            // console.log("Icon edit!");
             array[temp].icon = "./appicons/" + nome;
           }
           if (temp2 !== "") {
@@ -618,17 +619,22 @@ class Main extends React.Component {
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
-          console.log("Edit Icon correctly Uploaded!");
+          // console.log("Edit Icon correctly Uploaded!");
           this.setState({
             activityChanged: false
           });
+          spData.appItems.pop();
+          this.saveFile(spData, "./api/img-upload.php", "config");
+          this.setState(previousState => ({
+            appItems: [...previousState.appItems, spData.appAdd]
+          }));
         } else if (url === "icon" && op === "add") {
           newItem.icon = "./appicons/" + nome;
           newItem.title = temp2;
           newItem.link = temp3;
           tempIcon = "";
           arrayAdd = this.addAfter(array, inPos, newItem);
-          console.log("Insert pos=", (inPos));
+          // console.log("Insert pos=", (inPos));
           this.setState({ appItems: arrayAdd });
           spData.appItems = arrayAdd;
           arrayAdd = [];
@@ -643,10 +649,15 @@ class Main extends React.Component {
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
-          console.log("Add Icon correctly Uploaded!");
+          // console.log("Add Icon correctly Uploaded!");
           this.setState({
             activityChanged: false
           });
+          spData.appItems.pop();
+          this.saveFile(spData, "./api/img-upload.php", "config");
+          this.setState(previousState => ({
+            appItems: [...previousState.appItems, spData.appAdd]
+          }));
         } else if (url === "icon" && op === "addlast") {
           newItem.icon = "./appicons/" + nome;
           newItem.title = temp2;
@@ -668,10 +679,15 @@ class Main extends React.Component {
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
-          console.log("Add Last Icon correctly Uploaded!");
+          // console.log("Add Last Icon correctly Uploaded!");
           this.setState({
             activityChanged: false
           });
+          spData.appItems.pop();
+          this.saveFile(spData, "./api/img-upload.php", "config");
+          this.setState(previousState => ({
+            appItems: [...previousState.appItems, spData.appAdd]
+          }));
         } else if (url === "back" && op === "edit") {
           spData.backgroundImage = "./img/" + nome;
           // spData.logoColor = this.hexToRgb(tempColor) + ", 0.7)";
@@ -691,13 +707,14 @@ class Main extends React.Component {
           this.setState({ upShow: false });
           this.setState({ alShow: true });
           this.setState({ alErrShow: false });
-          console.log("File correctly Uploaded!");
+          // console.log("File correctly Uploaded!");
           // backgroundImg = spData.backgroundImage;
           // document.documentElement.style.setProperty('--background-image', "url(" + spData.backgroundImage + ")");
           this.setState({
             activityChanged: false
           });
         }
+        this.saveFile(spData, "./api/img-upload.php", "config");
         fileImg = null;
         // })
         // }
@@ -732,10 +749,11 @@ class Main extends React.Component {
       // headTitle = spData.headTitle;
       spData.headColor = this.hexToRgb(tempColor) + ", 0.95)";
       // headColor = spData.headColor;
-      console.log(spData.headColor);
+      // console.log(spData.headColor);
       // tempColor = "";
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
+      this.saveFile(spData, "./api/img-upload.php", "config");
     }
     else {
       this.setState({ alErrShow: true });
@@ -750,6 +768,7 @@ class Main extends React.Component {
     // tempColor = "";
     this.setState({ alShow: true });
     this.setState({ alErrShow: false });
+    this.saveFile(spData, "./api/img-upload.php", "config");
   }
 
   saveInfo = () => {
@@ -772,6 +791,7 @@ class Main extends React.Component {
     temp2 = "";
     temp3 = "";
     this.setState({ alShow: true });
+    this.saveFile(spData, "./api/img-upload.php", "config");
   }
 
   saveCredit = () => {
@@ -794,6 +814,7 @@ class Main extends React.Component {
     temp2 = "";
     temp3 = "";
     this.setState({ alShow: true });
+    this.saveFile(spData, "./api/img-upload.php", "config");
   }
 
   saveAppEdit = () => {
@@ -806,7 +827,7 @@ class Main extends React.Component {
   applyAppDel = () => {
     var array = [...this.state.appItems];
     var index = temp;
-    console.log("Index: ", temp);
+    // console.log("Index: ", temp);
     if (index !== -1) {
       fetchDelPHP(tempIcon, "./api/img-upload.php", "icon");
       tempIcon = "";
@@ -818,6 +839,7 @@ class Main extends React.Component {
     temp2 = "";
     temp3 = "";
     this.setState({ alShow: true });
+    this.saveFile(spData, "./api/img-upload.php", "config");
   }
 
   addAfter(array, index, newItem) {
@@ -848,8 +870,8 @@ class Main extends React.Component {
     }
   }
   saveBack = () => {
-    console.log("NoImage:", spData.noBackImage);
-    console.log("disField:", this.state.disField);
+    // console.log("NoImage:", spData.noBackImage);
+    // console.log("disField:", this.state.disField);
     if (fileImg !== null) {
       // var nome = fileImg.name;
       tempIcon = spData.backgroundImage;
@@ -888,6 +910,7 @@ class Main extends React.Component {
       this.setState({ upShow: false });
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
+      this.saveFile(spData, "./api/img-upload.php", "config");
     }
   }
 
@@ -906,6 +929,7 @@ class Main extends React.Component {
       this.setState({ upShow: false });
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
+      this.saveFile(spData, "./api/img-upload.php", "config");
     }
   }
 
@@ -971,6 +995,7 @@ class Main extends React.Component {
       temp2 = "";
       this.setState({ alShow: true });
       this.setState({ alErrShow: false });
+      this.saveFile(spData, "./api/img-upload.php", "config");
     } else {
       this.setState({ alShow: false });
       this.setState({ alErrShow: true });
@@ -1138,34 +1163,34 @@ class Main extends React.Component {
 
   headTitleEdit(id) {
     this.showModal("title");
-    console.log("Title Edit Clicked:", id);
+    // console.log("Title Edit Clicked:", id);
   }
 
   backEdit(id) {
     this.showModal("back");
-    console.log("Background Edit Clicked:");
+    // console.log("Background Edit Clicked:");
   }
 
   clockEdit(id) {
     this.showModal("clock");
-    console.log("Clock Edit Clicked:");
+    // console.log("Clock Edit Clicked:");
   }
 
   footCreditsEdit(id) {
     this.showModal("credit");
-    console.log("Credits Edit Clicked:", id);
+    // console.log("Credits Edit Clicked:", id);
   }
 
   footInfoEdit(id) {
     this.showModal("info");
-    console.log("Info Edit Clicked:", id);
+    // console.log("Info Edit Clicked:", id);
   }
 
   appAddItem(id, pos) {
     array = [...this.state.appItems];
     arrayLength = (array.length - 1);
     this.showModal("appAdd");
-    console.log("Adding IT!");
+    // console.log("Adding IT!");
   }
 
   toggleFootShow(id) {
@@ -1188,7 +1213,7 @@ class Main extends React.Component {
     tempAppTitle = array[pos].title;
     tempAppLink = array[pos].link;
     tempIcon = array[pos].icon;
-    console.log(id, " for ", pos);
+    // console.log(id, " for ", pos);
     if (id === "AppEdit") {
       this.showModal("appEdit");
     } else {
@@ -2155,9 +2180,10 @@ class SettingsGear extends React.Component {
       this.props.handleShowButtons(true);
     }
     return (
-      <div className="gear mt-2 mb-2" title="Settings mode" alt="Settings Mode" onClick={() => gearClick()}>
-        <GearIcon></GearIcon>
-      </div>
+      <img className="gear mt-2 mb-2" title="Settings mode" alt="Settings Mode" src="./img/gear.svg" onClick={() => gearClick()} />
+      // <div className="gear mt-2 mb-2" title="Settings mode" alt="Settings Mode" onClick={() => gearClick()}>
+      //   <GearIcon></GearIcon>
+      // </div>
     );
   }
 }

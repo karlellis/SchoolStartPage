@@ -22,7 +22,7 @@
   "appsBtnShow": false,
   "GearIcon": "./img/gear.svg",
   "LogoIcon": "",
-  "backgroundImage": "./srcimg/background.jpg",
+  "backgroundImage": "./img/background.jpg",
   "noBackImage": false,
   "appItems": [],
   "appAdd": [
