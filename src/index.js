@@ -168,14 +168,14 @@ const AppEditDialog = ({ handleSave, handleClose, appEditDiaShow, children, acti
   );
 };
 
-const AppDelDialog = ({ handleSave, handleClose, appDelDiaShow, children }) => {
+const AppDelDialog = ({ handleSave, handleClose, appDelDiaShow, children, activityChanged }) => {
   const showHideClassName = appDelDiaShow ? "modal display-block" : "modal display-none";
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
         {children}
         <div className="modal-footer">
-          <button type="button" className="btn btn-primary" onClick={handleSave}>Rimuovi</button>
+          <button type="button" disabled={(activityChanged) ? true : false} className="btn btn-primary" onClick={handleSave}>Rimuovi</button>
           <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={handleClose}>Chiudi</button>
         </div>
       </section>
@@ -338,7 +338,13 @@ class Main extends React.Component {
       alErrShow: false,
       upShow: false,
       activityChanged: false,
+      disFieldB: false,
       disField: false,
+      disField2: false,
+      disField3: false,
+      disFieldC: false,
+      disFieldC2: false,
+      disFieldC3: false,
       backStyle: {
         backgroundImage: "url(" + spData.backgroundImage + ")",
         backgroundColor: spData.backgroundColor,
@@ -373,7 +379,13 @@ class Main extends React.Component {
           mainBtn: spData.mainBtn,
           appsBtnShow: spData.appsBtnShow,
           appItems: spData.appItems,
-          disField: spData.noBackImage
+          disFieldB: spData.noBackImage,
+          disField: spData.noFootTitle,
+          disField2: spData.noFootSubtitle,
+          disField3: spData.noFootSubtitle2,
+          disFieldC: spData.noFootCreditiTitle,
+          disFieldC2: spData.noFootCreditiSubtitle,
+          disFieldC3: spData.noFootCreditiSubtitle2
         });
         // console.log("NobackImage:", spData.noBackImage);
         if (spData.noBackImage === true) {
@@ -638,6 +650,7 @@ class Main extends React.Component {
           this.setState({ appItems: arrayAdd });
           spData.appItems = arrayAdd;
           arrayAdd = [];
+          arrayLength = arrayLength + 1;
           temp = "";
           temp2 = "";
           temp3 = "";
@@ -653,6 +666,7 @@ class Main extends React.Component {
           this.setState({
             activityChanged: false
           });
+
           spData.appItems.pop();
           this.saveFile(spData, "./api/img-upload.php", "config");
           this.setState(previousState => ({
@@ -668,6 +682,7 @@ class Main extends React.Component {
           this.setState({ appItems: arrayAdd });
           spData.appItems = arrayAdd;
           arrayAdd = [];
+          arrayLength = arrayLength + 1;
           temp = "";
           temp2 = "";
           temp3 = "";
@@ -776,13 +791,22 @@ class Main extends React.Component {
       spData.footTitle = temp;
       // footTitle = spData.footTitle;
     }
+    if (spData.noFootTitle === true) {
+      spData.footTitle = "";
+    }
     if (temp2 !== "") {
       spData.footSubtitle = temp2;
       // footSubtitle = spData.footSubtitle;
     }
+    if (spData.noFootSubtitle === true) {
+      spData.footSubtitle = "";
+    }
     if (temp3 !== "") {
       spData.footSubtitle2 = temp3;
       // footSubtitle2 = spData.footSubtitle2;
+    }
+    if (spData.noFootSubtitle2 === true) {
+      spData.footSubtitle2 = "";
     }
     spData.footInfoColor = this.hexToRgb(tempColor) + ", 0.7)";
     // footInfoColor = spData.footInfoColor;
@@ -799,13 +823,22 @@ class Main extends React.Component {
       spData.footCreditiTitle = temp;
       // footCreditiTitle = spData.footCreditiTitle;
     }
+    if (spData.noFootCreditiTitle === true) {
+      spData.footCreditiTitle = "";
+    }
     if (temp2 !== "") {
       spData.footCreditiSubtitle = temp2;
       // footCreditiSubtitle = spData.footCreditiSubtitle;
     }
+    if (spData.noFootCreditiSubtitle === true) {
+      spData.footCreditiSubtitle = "";
+    }
     if (temp3 !== "") {
       spData.footCreditiSubtitle2 = temp3;
       // footCreditiSubtitle2 = spData.footCreditiSubtitle2;
+    }
+    if (spData.noFootCreditiSubtitle2 === true) {
+      spData.footCreditiSubtitle2 = "";
     }
     spData.footCreditColor = this.hexToRgb(tempColor) + ", 0.7)";
     // footCreditColor = spData.footCreditColor;
@@ -840,6 +873,9 @@ class Main extends React.Component {
     temp3 = "";
     this.setState({ alShow: true });
     this.saveFile(spData, "./api/img-upload.php", "config");
+    this.setState({
+      activityChanged: true
+    });
   }
 
   addAfter(array, index, newItem) {
@@ -1094,6 +1130,9 @@ class Main extends React.Component {
     temp = "";
     temp2 = "";
     temp3 = "";
+    this.setState({
+      activityChanged: false
+    });
   };
 
   hideAlert = () => {
@@ -1225,7 +1264,13 @@ class Main extends React.Component {
     const { headShow: headShow } = this.state;
     const { footShow: footShow } = this.state;
     const { mainBtn: mainBtn } = this.state;
+    const { disFieldB: disFieldB } = this.state;
     const { disField: disField } = this.state;
+    const { disField2: disField2 } = this.state;
+    const { disField3: disField3 } = this.state;
+    const { disFieldC: disFieldC } = this.state;
+    const { disFieldC2: disFieldC2 } = this.state;
+    const { disFieldC3: disFieldC3 } = this.state;
     let head = "";
     let buttons = "";
     let foot = "";
@@ -1846,17 +1891,83 @@ class Main extends React.Component {
                 </div>
                 <div className="modal-body">
                   <form id="infoForm">
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootTitle} onClick={e => {
+                          if (this.state.disField === false) {
+                            this.setState({
+                              disField: true
+                            });
+                            spData.noFootTitle = true;
+                          } else {
+                            this.setState({
+                              disField: false
+                            });
+                            spData.noFootTitle = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Nome Istituto</label>
-                      <input type="text" className="form-control" defaultValue={spData.footTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footTitle}*/ />
+                      <input type="text" disabled={disField} className="form-control" defaultValue={spData.footTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footTitle}*/ />
                     </div>
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootSubtitle} onClick={e => {
+                          if (this.state.disField2 === false) {
+                            this.setState({
+                              disField2: true
+                            });
+                            spData.noFootSubtitle = true;
+                          } else {
+                            this.setState({
+                              disField2: false
+                            });
+                            spData.noFootSubtitle = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Indirizzo Istituto</label>
-                      <input type="text" className="form-control" defaultValue={spData.footSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footSubtitle}*/ />
+                      <input type="text" disabled={disField2} className="form-control" defaultValue={spData.footSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footSubtitle}*/ />
                     </div>
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootSubtitle2} onClick={e => {
+                          if (this.state.disField3 === false) {
+                            this.setState({
+                              disField3: true
+                            });
+                            spData.noFootSubtitle2 = true;
+                          } else {
+                            this.setState({
+                              disField3: false
+                            });
+                            spData.noFootSubtitle2 = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Telefono Istituto</label>
-                      <input type="text" className="form-control" defaultValue={spData.footSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footSubtitle2}*/ />
+                      <input type="text" disabled={disField3} className="form-control" defaultValue={spData.footSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footSubtitle2}*/ />
                     </div>
                     <div className="form-group">
                       <label>Colore sfondo</label>
@@ -1887,17 +1998,83 @@ class Main extends React.Component {
                 </div>
                 <div className="modal-body">
                   <form id="creditForm">
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootCreditiTitle} onClick={e => {
+                          if (this.state.disFieldC === false) {
+                            this.setState({
+                              disFieldC: true
+                            });
+                            spData.noFootCreditiTitle = true;
+                          } else {
+                            this.setState({
+                              disFieldC: false
+                            });
+                            spData.noFootCreditiTitle = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Etichetta Crediti</label>
-                      <input type="text" className="form-control" defaultValue={spData.footCreditiTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footCreditiTitle}*/ />
+                      <input type="text" disabled={disFieldC} className="form-control" defaultValue={spData.footCreditiTitle} onChange={e => temp = e.target.value} /*placeholder={spData.footCreditiTitle}*/ />
                     </div>
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootCreditiSubtitle} onClick={e => {
+                          if (this.state.disFieldC2 === false) {
+                            this.setState({
+                              disFieldC2: true
+                            });
+                            spData.noFootCreditiSubtitle = true;
+                          } else {
+                            this.setState({
+                              disFieldC2: false
+                            });
+                            spData.noFootCreditiSubtitle = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Crediti Pricipale</label>
-                      <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footCreditiSubtitle}*/ />
+                      <input type="text" disabled={disFieldC2} className="form-control" defaultValue={spData.footCreditiSubtitle} onChange={e => temp2 = e.target.value} /*placeholder={spData.footCreditiSubtitle}*/ />
                     </div>
+
+                    <label>Disabilita</label>
+                    <div>
+                      <label class="switch">
+                        <input type="checkbox" className="form-control" defaultChecked={spData.noFootCreditiSubtitle2} onClick={e => {
+                          if (this.state.disFieldC3 === false) {
+                            this.setState({
+                              disFieldC3: true
+                            });
+                            spData.noFootCreditiSubtitle2 = true;
+                          } else {
+                            this.setState({
+                              disFieldC3: false
+                            });
+                            spData.noFootCreditiSubtitle2 = false;
+                          }
+                          // temp = e.target.value;
+                        }} />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+
                     <div className="form-group">
                       <label>Crediti Secondario</label>
-                      <input type="text" className="form-control" defaultValue={spData.footCreditiSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footCreditiSubtitle2}*/ />
+                      <input type="text" disabled={disFieldC3} className="form-control" defaultValue={spData.footCreditiSubtitle2} onChange={e => temp3 = e.target.value} /*placeholder={spData.footCreditiSubtitle2}*/ />
                     </div>
                     <div className="form-group">
                       <label>Colore sfondo</label>
@@ -1921,7 +2098,7 @@ class Main extends React.Component {
                 </div>
               </div>
             </CreditDialog>
-            <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} handleClose={this.hideModal} handleSave={this.saveBack}>
+            <BackEditDialog backEditDiaShow={this.state.backEditDiaShow} activityChanged={this.state.activityChanged} handleClose={this.hideModal} handleSave={this.saveBack}>
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" >Modifica Sfondo Pagina</h5>
@@ -1933,14 +2110,14 @@ class Main extends React.Component {
                       <div>
                         <label class="switch">
                           <input type="checkbox" className="form-control" defaultChecked={spData.noBackImage} onClick={e => {
-                            if (this.state.disField === false) {
+                            if (this.state.disFieldB === false) {
                               this.setState({
-                                disField: true
+                                disFieldB: true
                               });
                               spData.noBackImage = true;
                             } else {
                               this.setState({
-                                disField: false
+                                disFieldB: false
                               });
                               spData.noBackImage = false;
                             }
@@ -1956,7 +2133,7 @@ class Main extends React.Component {
                         });
                       }} /> */}
                       <label>Scegli un file immagine per lo sfondo (Max 1 MB)</label>
-                      <input type="file" disabled={disField} className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
+                      <input type="file" disabled={disFieldB} className="form-control" name="icon" onChange={e => fileImg = e.target.files[0]} />
                     </div>
                     {/* <div className="form-group">
                       <label>Nessuna immagine.</label>
@@ -1998,7 +2175,7 @@ class Main extends React.Component {
                 </div>
               </div>
             </BackEditDialog>
-            <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
+            <AppEditDialog appEditDiaShow={this.state.appEditDiaShow} activityChanged={this.state.activityChanged} handleClose={this.hideModal} handleSave={this.saveAppEdit}>
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" >Modifica Applicazione Web</h5>
@@ -2049,7 +2226,7 @@ class Main extends React.Component {
                 </div>
               </div>
             </AppEditDialog>
-            <AppAddDialog appAddDiaShow={this.state.appAddDiaShow} handleClose={this.hideModal} handleSave={this.applyAppAdd}>
+            <AppAddDialog appAddDiaShow={this.state.appAddDiaShow} activityChanged={this.state.activityChanged} handleClose={this.hideModal} handleSave={this.applyAppAdd}>
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" >Aggiungi Applicazione Web</h5>
@@ -2118,7 +2295,7 @@ class Main extends React.Component {
                 </div>
               </div>
             </AppAddDialog>
-            <AppDelDialog appDelDiaShow={this.state.appDelDiaShow} handleClose={this.hideModal} handleSave={this.applyAppDel}>
+            <AppDelDialog appDelDiaShow={this.state.appDelDiaShow} activityChanged={this.state.activityChanged} handleClose={this.hideModal} handleSave={this.applyAppDel}>
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" >Rimuovere l'applicazione in maniera definitiva?</h5>
