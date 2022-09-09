@@ -2357,7 +2357,7 @@ class SettingsGear extends React.Component {
       this.props.handleShowButtons(true);
     }
     return (
-      <img className="gear mt-2 mb-2" title="Settings mode" alt="Settings Mode" src="./img/gear.svg" onClick={() => gearClick()} />
+      <img className="gear mt-2 mb-2" /* title="Settings mode" alt="Settings Mode" */ src="./img/gear.svg" onClick={() => gearClick()} />
       // <div className="gear mt-2 mb-2" title="Settings mode" alt="Settings Mode" onClick={() => gearClick()}>
       //   <GearIcon></GearIcon>
       // </div>

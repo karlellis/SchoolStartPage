@@ -260,7 +260,7 @@ input:checked+.slider:before {
 	width: 2em;
 	height: 2em;
 	position: sticky;
-	cursor: pointer;
+	/* cursor: pointer; */
 }
 
 .logo {
